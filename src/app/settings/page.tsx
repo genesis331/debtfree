@@ -6,7 +6,7 @@ import {Switch} from "@/components/ui/switch";
 export default function Index() {
   return (
       <div className="min-h-screen flex flex-col px-6 py-10 gap-6">
-          <div className="text-4xl font-black">Settings</div>
+          <div className="text-4xl font-bold">Settings</div>
           <div className="flex flex-col gap-3.5">
               <div className="font-semibold">Edit Your Info</div>
               <div className="flex flex-col gap-4">
@@ -28,7 +28,7 @@ export default function Index() {
                           <div className="flex items-center">
                               <div className="flex-1">
                                   <div>ahmad@example.com</div>
-                                  <div className="text-xs text-gray-500">Email</div>
+                                  <div className="text-xs text-gray-500">Email Address</div>
                               </div>
                               <div>
                                   <Button className="[&_svg]:size-6 px-2 text-gray-500" variant="ghost"><PencilIcon /></Button>

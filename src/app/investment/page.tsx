@@ -2,50 +2,50 @@ import {Card, CardContent} from "@/components/ui/card";
 
 export default function Index() {
   return (
-      <div className="min-h-screen flex flex-col">
-          <div>Grow Your Money</div>
-          <div>
-          <div>Low-Risk Investments</div>
-              <div className="flex flex-col">
-                  <Card>
-                      <CardContent className="p-0">
+      <div className="min-h-screen flex flex-col px-6 py-10 gap-6">
+          <div className="text-4xl font-bold">Grow Your Money</div>
+          <div className="flex flex-col gap-3.5">
+              <div className="font-semibold">Low-Risk Investments</div>
+              <div className="flex flex-col gap-4">
+                  <Card className="shadow-none">
+                      <CardContent className="px-5 py-4">
                           <div>Maybank Fixed Deposit</div>
-                          <div>up to 3.80% p.a.</div>
+                          <div className="text-xs text-gray-500">up to 3.80% p.a.</div>
                       </CardContent>
                   </Card>
-                  <Card>
-                      <CardContent className="p-0">
+                  <Card className="shadow-none">
+                      <CardContent className="px-5 py-4">
                           <div>Malaysian Government Securities</div>
-                          <div>up to 3.81% p.a.</div>
+                          <div className="text-xs text-gray-500">up to 3.81% p.a.</div>
                       </CardContent>
                   </Card>
               </div>
           </div>
-          <div>
-              <div>Learn Investment</div>
-              <div className="flex flex-col">
-                  <Card>
-                      <CardContent className="p-0">
+          <div className="flex flex-col gap-3.5">
+              <div className="font-semibold">Learn Investment</div>
+              <div className="flex flex-col gap-4">
+                  <Card className="shadow-none">
+                      <CardContent className="px-5 py-4">
                           <div>Decoding Financial Earning Reports</div>
-                          <div>Financial Reports</div>
+                          <div className="text-xs text-gray-500">Financial Reports</div>
                       </CardContent>
                   </Card>
-                  <Card>
-                      <CardContent className="p-0">
+                  <Card className="shadow-none">
+                      <CardContent className="px-5 py-4">
                           <div>Investing in Dividend Stocks</div>
-                          <div>Diversify Your Portfolio</div>
+                          <div className="text-xs text-gray-500">Diversify Your Portfolio</div>
                       </CardContent>
                   </Card>
-                  <Card>
-                      <CardContent className="p-0">
+                  <Card className="shadow-none">
+                      <CardContent className="px-5 py-4">
                           <div>Beginner’s Guide to ETFs</div>
-                          <div>ETF Investing</div>
+                          <div className="text-xs text-gray-500">ETF Investing</div>
                       </CardContent>
                   </Card>
-                  <Card>
-                      <CardContent className="p-0">
+                  <Card className="shadow-none">
+                      <CardContent className="px-5 py-4">
                           <div>How to Reduce Investment Risk</div>
-                          <div>Risk Management</div>
+                          <div className="text-xs text-gray-500">Risk Management</div>
                       </CardContent>
                   </Card>
               </div>
