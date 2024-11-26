@@ -21,10 +21,10 @@ export default function Index() {
                           <div className="flex items-center">
                               <div className="flex-1">
                                   <div>Maybank</div>
-                                  <div className="text-xs text-gray-500">xxxxxxxx13</div>
+                                  <div className="text-xs text-zinc-500">xxxxxxxx13</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-gray-500" variant="ghost"><Trash2Icon /></Button>
+                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><Trash2Icon /></Button>
                               </div>
                           </div>
                       </CardContent>
@@ -34,10 +34,10 @@ export default function Index() {
                           <div className="flex items-center">
                               <div className="flex-1">
                                   <div>Touch n’ Go E-Wallet</div>
-                                  <div className="text-xs text-gray-500">601xxxxxxxx27</div>
+                                  <div className="text-xs text-zinc-500">601xxxxxxxx27</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-gray-500" variant="ghost"><Trash2Icon /></Button>
+                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><Trash2Icon /></Button>
                               </div>
                           </div>
                       </CardContent>

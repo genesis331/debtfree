@@ -10,13 +10,13 @@ export default function Index() {
                   <Card className="shadow-none">
                       <CardContent className="px-5 py-4">
                           <div>Maybank Fixed Deposit</div>
-                          <div className="text-xs text-gray-500">up to 3.80% p.a.</div>
+                          <div className="text-xs text-zinc-500">up to 3.80% p.a.</div>
                       </CardContent>
                   </Card>
                   <Card className="shadow-none">
                       <CardContent className="px-5 py-4">
                           <div>Malaysian Government Securities</div>
-                          <div className="text-xs text-gray-500">up to 3.81% p.a.</div>
+                          <div className="text-xs text-zinc-500">up to 3.81% p.a.</div>
                       </CardContent>
                   </Card>
               </div>
@@ -27,25 +27,25 @@ export default function Index() {
                   <Card className="shadow-none">
                       <CardContent className="px-5 py-4">
                           <div>Decoding Financial Earning Reports</div>
-                          <div className="text-xs text-gray-500">Financial Reports</div>
+                          <div className="text-xs text-zinc-500">Financial Reports</div>
                       </CardContent>
                   </Card>
                   <Card className="shadow-none">
                       <CardContent className="px-5 py-4">
                           <div>Investing in Dividend Stocks</div>
-                          <div className="text-xs text-gray-500">Diversify Your Portfolio</div>
+                          <div className="text-xs text-zinc-500">Diversify Your Portfolio</div>
                       </CardContent>
                   </Card>
                   <Card className="shadow-none">
                       <CardContent className="px-5 py-4">
                           <div>Beginner’s Guide to ETFs</div>
-                          <div className="text-xs text-gray-500">ETF Investing</div>
+                          <div className="text-xs text-zinc-500">ETF Investing</div>
                       </CardContent>
                   </Card>
                   <Card className="shadow-none">
                       <CardContent className="px-5 py-4">
                           <div>How to Reduce Investment Risk</div>
-                          <div className="text-xs text-gray-500">Risk Management</div>
+                          <div className="text-xs text-zinc-500">Risk Management</div>
                       </CardContent>
                   </Card>
               </div>

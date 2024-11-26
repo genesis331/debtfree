@@ -15,10 +15,10 @@ export default function Index() {
                           <div className="flex items-center">
                               <div className="flex-1">
                                   <div>Ahmad Iskandar</div>
-                                  <div className="text-xs text-gray-500">Full Name</div>
+                                  <div className="text-xs text-zinc-500">Full Name</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-gray-500" variant="ghost"><PencilIcon /></Button>
+                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon /></Button>
                               </div>
                           </div>
                       </CardContent>
@@ -28,10 +28,10 @@ export default function Index() {
                           <div className="flex items-center">
                               <div className="flex-1">
                                   <div>ahmad@example.com</div>
-                                  <div className="text-xs text-gray-500">Email Address</div>
+                                  <div className="text-xs text-zinc-500">Email Address</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-gray-500" variant="ghost"><PencilIcon /></Button>
+                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon /></Button>
                               </div>
                           </div>
                       </CardContent>
@@ -49,10 +49,10 @@ export default function Index() {
                           <div className="flex items-center">
                               <div className="flex-1">
                                   <div>Maybank</div>
-                                  <div className="text-xs text-gray-500">xxxxxxxx13</div>
+                                  <div className="text-xs text-zinc-500">xxxxxxxx13</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-gray-500" variant="ghost"><PencilIcon /></Button>
+                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon /></Button>
                               </div>
                           </div>
                       </CardContent>
@@ -62,10 +62,10 @@ export default function Index() {
                           <div className="flex items-center">
                               <div className="flex-1">
                                   <div>Touch n’ Go E-Wallet</div>
-                                  <div className="text-xs text-gray-500">601xxxxxxxx27</div>
+                                  <div className="text-xs text-zinc-500">601xxxxxxxx27</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-gray-500" variant="ghost"><PencilIcon /></Button>
+                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon /></Button>
                               </div>
                           </div>
                       </CardContent>
@@ -81,7 +81,7 @@ export default function Index() {
                   <div className="flex">
                       <div className="flex-1 flex flex-col gap-1.5">
                           <div className="text-sm">Alert</div>
-                          <div className="text-xs text-gray-500">Notifications for prepayment penalties or approaching grace period
+                          <div className="text-xs text-zinc-500">Notifications for prepayment penalties or approaching grace period
                               expirations.
                           </div>
                       </div>
@@ -92,7 +92,7 @@ export default function Index() {
                   <div className="flex">
                       <div className="flex-1 flex flex-col gap-1.5">
                           <div className="text-sm">Offers & Discount Notification</div>
-                          <div className="text-xs text-gray-500">Notifications for prepayment penalties or approaching grace period
+                          <div className="text-xs text-zinc-500">Notifications for prepayment penalties or approaching grace period
                               expirations.
                           </div>
                       </div>
@@ -110,10 +110,10 @@ export default function Index() {
                           <div className="flex items-center">
                               <div className="flex-1">
                                   <div>40% of Current Assets</div>
-                                  <div className="text-xs text-gray-500">Debt-to-Asset Ratio Alert</div>
+                                  <div className="text-xs text-zinc-500">Debt-to-Asset Ratio Alert</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-gray-500" variant="ghost"><PencilIcon/></Button>
+                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon/></Button>
                               </div>
                           </div>
                       </CardContent>
@@ -123,10 +123,10 @@ export default function Index() {
                           <div className="flex items-center">
                               <div className="flex-1">
                                   <div>RM800</div>
-                                  <div className="text-xs text-gray-500">Amount Kept from Debt Repayment</div>
+                                  <div className="text-xs text-zinc-500">Amount Kept from Debt Repayment</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-gray-500" variant="ghost"><PencilIcon /></Button>
+                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon /></Button>
                               </div>
                           </div>
                       </CardContent>

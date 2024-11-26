@@ -25,7 +25,7 @@ export default function Index() {
               <div className="flex flex-col gap-3.5">
                   <div className="flex justify-between items-center">
                       <div className="font-semibold">All Debts</div>
-                      <Button variant="ghost" className="px-0 py-0 h-min text-gray-500">
+                      <Button variant="ghost" className="px-0 py-0 h-min text-zinc-500">
                           <SortDescIcon/> Debt amount
                       </Button>
                   </div>
@@ -36,7 +36,7 @@ export default function Index() {
                                   <div>Proton Saga</div>
                                   <div>RM1,300/mo</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>Vehicle Loan</div>
                                   <div>3.40% p.a.</div>
                               </div>
@@ -48,7 +48,7 @@ export default function Index() {
                                   <div>Maju Apartment</div>
                                   <div>RM1,100/mo</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>Housing Loan</div>
                                   <div>2.88% p.a.</div>
                               </div>
@@ -60,7 +60,7 @@ export default function Index() {
                                   <div>Kitchen Renovation</div>
                                   <div>RM900/mo</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>Personal Loan</div>
                                   <div>4.40% p.a.</div>
                               </div>
@@ -72,7 +72,7 @@ export default function Index() {
                                   <div>PTPTN Anak 1</div>
                                   <div>RM679/mo</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>Education Loan</div>
                                   <div>1.00%</div>
                               </div>
@@ -84,7 +84,7 @@ export default function Index() {
                                   <div>PTPTN Anak 2</div>
                                   <div>RM549/mo</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>Education Loan</div>
                                   <div>1.00%</div>
                               </div>
@@ -96,7 +96,7 @@ export default function Index() {
                                   <div>LG Puricare</div>
                                   <div>RM160/mo</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>Personal Loan</div>
                                   <div>0.00%</div>
                               </div>
@@ -128,7 +128,7 @@ export default function Index() {
           <div className="flex flex-col gap-6">
               <div className="text-3xl font-bold">Debt Timeline</div>
               <div className="flex flex-col gap-2">
-                  <div className="font-semibold text-gray-500">Nov 2024</div>
+                  <div className="font-semibold text-zinc-500">Nov 2024</div>
                   <div className="flex flex-col gap-2">
                       <div className="flex gap-4">
                           <div className="font-medium text-lg">1</div>
@@ -137,7 +137,7 @@ export default function Index() {
                                   <div>Proton Saga</div>
                                   <div>1,300.00</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>3.40% p.a.</div>
                                   <div>3.68</div>
                               </div>
@@ -150,7 +150,7 @@ export default function Index() {
                                   <div>Kitchen Renovation</div>
                                   <div>900.00</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>4.40% p.a.</div>
                                   <div>3.30</div>
                               </div>
@@ -163,7 +163,7 @@ export default function Index() {
                                   <div>Maju Apartment</div>
                                   <div>1,100.00</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>2.88% p.a.</div>
                                   <div>2.64</div>
                               </div>
@@ -176,7 +176,7 @@ export default function Index() {
                                   <div>PTPTN Anak 1</div>
                                   <div>679.00</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>1.00% p.a.</div>
                                   <div>0.57</div>
                               </div>
@@ -189,7 +189,7 @@ export default function Index() {
                                   <div>PTPTN Anak 2</div>
                                   <div>549.00</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>1.00% p.a.</div>
                                   <div>0.46</div>
                               </div>
@@ -202,7 +202,7 @@ export default function Index() {
                                   <div>LG Puricare</div>
                                   <div>160.00</div>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-xs text-zinc-500">
                                   <div>0.00% p.a.</div>
                                   <div>0.00</div>
                               </div>
@@ -213,7 +213,7 @@ export default function Index() {
               <div className="flex flex-col gap-3.5">
                   <div className="font-semibold">Expected Debt Clearance</div>
                   <div className="mx-4">
-                      <ul className="list-disc list-outside text-gray-500">
+                      <ul className="list-disc list-outside text-zinc-500">
                           <li>LG Puricare debt completes on Jan 2025</li>
                           <li>PTPTN Anak 1, PTPTN Anak 2 and Kitchen Renovation debt completes on March 2025</li>
                           <li>Proton Saga debt completes on November 2025</li>
