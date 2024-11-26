@@ -50,7 +50,7 @@ export default function Index() {
                                               right: 12,
                                           }}
                                       >
-                                          <CartesianGrid vertical={false} />
+                                          <CartesianGrid vertical={false}/>
                                           <XAxis
                                               dataKey="month"
                                               tickLine={false}
@@ -58,7 +58,7 @@ export default function Index() {
                                               tickMargin={8}
                                               tickFormatter={(value) => value.slice(0, 3)}
                                           />
-                                          <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                                          <ChartTooltip cursor={false} content={<ChartTooltipContent/>}/>
                                           <Line
                                               dataKey="desktop"
                                               type="monotone"
@@ -75,6 +75,16 @@ export default function Index() {
                                           />
                                       </LineChart>
                                   </ChartContainer>
+                              </div>
+                              <div className="flex flex-wrap items-center text-xs gap-x-5 gap-y-2">
+                                  <div className="flex items-center gap-2">
+                                      <div className="h-2 w-2 rounded-full bg-chart-2"></div>
+                                      <div className="text-zinc-500">Income</div>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                      <div className="h-2 w-2 rounded-full bg-chart-1"></div>
+                                      <div className="text-zinc-500">Expenses</div>
+                                  </div>
                               </div>
                           </div>
                       </CardContent>

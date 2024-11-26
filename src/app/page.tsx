@@ -78,7 +78,7 @@ export default function Index() {
                                   <div className="bg-blue-700 w-[60%]"></div>
                                   <div className="bg-blue-300 w-[40%]"></div>
                               </div>
-                              <div className="flex items-center text-xs pt-2 gap-5">
+                              <div className="flex flex-wrap items-center text-xs pt-2 gap-x-5 gap-y-2">
                                   <div className="flex items-center gap-2">
                                       <div className="h-2 w-2 rounded-full bg-blue-700"></div>
                                       <div className="text-zinc-500">Maybank</div>
@@ -190,7 +190,7 @@ export default function Index() {
                                   <PieChart>
                                       <ChartTooltip
                                           cursor={false}
-                                          content={<ChartTooltipContent hideLabel />}
+                                          content={<ChartTooltipContent hideLabel/>}
                                       />
                                       <Pie
                                           data={chart2Data}
@@ -200,7 +200,7 @@ export default function Index() {
                                           strokeWidth={5}
                                       >
                                           <Label
-                                              content={({ viewBox }) => {
+                                              content={({viewBox}) => {
                                                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                                                       return (
                                                           <text
@@ -231,6 +231,28 @@ export default function Index() {
                                       </Pie>
                                   </PieChart>
                               </ChartContainer>
+                          </div>
+                          <div className="flex flex-wrap items-center justify-center text-xs pt-2 gap-x-5 gap-y-2">
+                              <div className="flex items-center gap-2">
+                                  <div className="h-2 w-2 rounded-full bg-chart-1"></div>
+                                  <div className="text-zinc-500">Personal Loans</div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                  <div className="h-2 w-2 rounded-full bg-chart-2"></div>
+                                  <div className="text-zinc-500">Education Loans</div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                  <div className="h-2 w-2 rounded-full bg-chart-3"></div>
+                                  <div className="text-zinc-500">Housing Loans</div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                  <div className="h-2 w-2 rounded-full bg-chart-4"></div>
+                                  <div className="text-zinc-500">Vehicle Loans</div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                  <div className="h-2 w-2 rounded-full bg-chart-5"></div>
+                                  <div className="text-zinc-500">Credit Card Bills</div>
+                              </div>
                           </div>
                       </div>
                   </CardContent>
