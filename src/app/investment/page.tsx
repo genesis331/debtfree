@@ -3,7 +3,7 @@ import {Card, CardContent} from "@/components/ui/card";
 export default function Index() {
   return (
       <div className="min-h-screen flex flex-col px-6 py-10 gap-6">
-          <div className="text-4xl font-bold">Grow Your Money</div>
+          <div className="text-3xl font-bold">Grow Your Money</div>
           <div className="flex flex-col gap-3.5">
               <div className="font-semibold">Low-Risk Investments</div>
               <div className="flex flex-col gap-4">
