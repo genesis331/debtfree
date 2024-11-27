@@ -3,6 +3,7 @@ import "./globals.css";
 import {SidebarProvider} from "@/components/ui/sidebar";
 import {AppSidebar} from "@/components/app-sidebar";
 import NavBar from "@/components/nav-bar";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "DebtFree",
