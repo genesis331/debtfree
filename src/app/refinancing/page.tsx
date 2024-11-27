@@ -65,7 +65,7 @@ export default function Index() {
                       </CardContent>
                   </Card>
               </div>
-              <div className="text-center font-medium text-zinc-500">View more offers</div>
+              <div className="text-center font-medium text-zinc-500 text-sm">View more offers</div>
           </div>
       </div>
   );

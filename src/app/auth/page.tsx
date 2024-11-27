@@ -2,6 +2,7 @@ import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
+import Link from "next/link";
 
 export default function Index() {
   return (
@@ -23,7 +24,9 @@ export default function Index() {
                   <div className="underline">Forgot your password?</div>
               </div>
               <div>
-                  <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">Login</Button>
+                  <Link href="/">
+                      <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">Login</Button>
+                  </Link>
               </div>
               <div>
                   <Separator className="h-[3px] bg-border/40"/>
@@ -58,7 +61,9 @@ export default function Index() {
                   </div>
               </div>
               <div>
-                  <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">Sign Up</Button>
+                  <Link href="/">
+                      <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">Sign Up</Button>
+                  </Link>
               </div>
               <div>
                   <Separator className="h-[3px] bg-border/40"/>

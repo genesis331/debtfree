@@ -78,8 +78,8 @@ export default function Index() {
           <div>
               <div className="flex w-full max-w-sm items-center space-x-2">
                   <Input type="text" placeholder="Enter your message here" className="h-10"/>
-                  <Button type="submit" size="lg">
-                      <SendIcon/>
+                  <Button type="submit" size="lg" className="bg-blue-700 hover:bg-blue-700/80">
+                      <SendIcon />
                   </Button>
               </div>
           </div>
