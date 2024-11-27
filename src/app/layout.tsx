@@ -21,7 +21,7 @@ export default function RootLayout({
           >
               <SidebarProvider>
                   <AppSidebar />
-                  <div>
+                  <div className="flex-1">
                       <NavBar />
                       {children}
                   </div>
