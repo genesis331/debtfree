@@ -6,6 +6,7 @@ import {Area, AreaChart, CartesianGrid, Label, Pie, PieChart, XAxis} from "recha
 import {Progress} from "@/components/ui/progress";
 import {PencilIcon} from "lucide-react";
 import {Button} from "@/components/ui/button";
+import Link from "next/link";
 
 const chart1Data = [
     { month: "January", desktop: 186, mobile: 80 },
@@ -72,7 +73,13 @@ export default function Index() {
                               <div className="font-semibold text-4xl">RM3,356.21</div>
                               <div className="flex items-center text-red-600">
                                   <div className="flex-1">RM800 kept from debt repayment</div>
-                                  <div><Button className="px-2" variant="ghost"><PencilIcon /></Button></div>
+                                  <div>
+                                      <Link href="/settings">
+                                          <Button className="px-2" variant="ghost">
+                                              <PencilIcon />
+                                          </Button>
+                                      </Link>
+                                  </div>
                               </div>
                               <div className="flex overflow-hidden rounded-full h-3">
                                   <div className="bg-blue-700 w-[60%]"></div>
