@@ -4,6 +4,7 @@ import {SidebarProvider} from "@/components/ui/sidebar";
 import {AppSidebar} from "@/components/app-sidebar";
 import NavBar from "@/components/nav-bar";
 import React from "react";
+import ActionButton from "@/components/action-btn";
 
 export const metadata: Metadata = {
   title: "DebtFree",
@@ -24,6 +25,7 @@ export default function RootLayout({
                   <AppSidebar />
                   <div className="flex-1">
                       <NavBar />
+                      <ActionButton />
                       {children}
                   </div>
               </SidebarProvider>
