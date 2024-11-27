@@ -32,7 +32,7 @@ const chartConfig = {
 
 export default function Index() {
   return (
-      <div className="min-h-screen flex flex-col px-6 py-10 gap-6">
+      <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
           <div className="flex flex-col gap-6">
               <div className="text-3xl font-bold">Debt Repayment</div>
               <div>

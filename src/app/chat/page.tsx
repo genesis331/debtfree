@@ -5,7 +5,7 @@ import {SendIcon} from "lucide-react";
 
 export default function Index() {
   return (
-      <div className="min-h-screen flex flex-col px-6 py-10 gap-6">
+      <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
           <div className="flex-1 flex flex-col justify-center gap-6">
               <div className="flex flex-col gap-4">
                   <div className="text-center text-3xl font-bold">Chat with Bei</div>
