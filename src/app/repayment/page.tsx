@@ -2,12 +2,8 @@
 
 import {Card, CardContent} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
-import {
-    ChartNoAxesCombinedIcon, CrownIcon,
-    MailWarningIcon,
-    PercentIcon,
-    SortDescIcon
-} from "lucide-react";
+import SuggestedStrategies from "./suggest-strategy";
+import {SortDescIcon} from "lucide-react";
 import {ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "@/components/ui/chart";
 import {CartesianGrid, Line, LineChart, XAxis} from "recharts";
 import {useSearchParams} from "next/navigation";
@@ -188,29 +184,7 @@ export default function Index() {
               </div> : null
           }
           {
-              step === "2" ? <div className="flex flex-col gap-6">
-                  <div className="text-3xl font-bold">Suggested Strategies</div>
-                  <div className="flex flex-col gap-3.5">
-                      <div className="font-semibold">Choose 1 strategy</div>
-                      <div className="flex flex-col gap-4">
-                          <Link href="/repayment?step=3">
-                              <Button variant="outline" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
-                                  <PercentIcon className="text-blue-700"/> Minimize Interest <CrownIcon/>
-                              </Button>
-                          </Link>
-                          <Link href="/repayment?step=3">
-                              <Button variant="outline" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
-                                  <MailWarningIcon className="text-blue-700"/> Avoid Penalties
-                              </Button>
-                          </Link>
-                          <Link href="/repayment?step=3">
-                              <Button variant="outline" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
-                                  <ChartNoAxesCombinedIcon className="text-blue-700"/> Free Up Cash Flow
-                              </Button>
-                          </Link>
-                      </div>
-                  </div>
-              </div> : null
+              step === "2" ? <SuggestedStrategies /> : null
           }
           {
               step === "3" ? <div className="flex flex-col gap-6">
