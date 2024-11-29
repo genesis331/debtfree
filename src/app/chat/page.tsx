@@ -36,49 +36,49 @@ export default function Index() {
                       </Card>
                   </div>
               </div>
-              <div className="flex flex-col gap-4">
-                  <div className="flex justify-end">
-                      <Card className="shadow-none max-w-[80%] bg-zinc-100 border-none">
-                          <CardContent className="px-5 py-4">
-                              <div className="flex flex-col gap-1">
-                                  <div>
-                                      Analyze my spending habits and suggest budget adjustments to free up additional
-                                      savings.
-                                  </div>
-                              </div>
-                          </CardContent>
-                      </Card>
-                  </div>
-                  <div className="flex">
-                      <Card className="shadow-none max-w-[80%] bg-transparent">
-                          <CardContent className="px-5 py-4">
-                              <div className="flex flex-col gap-1">
-                                  <div>
-                                      Based on your household income of RM6000 a month, here’s a quick breakdown:
+              {/*<div className="flex flex-col gap-4">*/}
+              {/*    <div className="flex justify-end">*/}
+              {/*        <Card className="shadow-none max-w-[80%] bg-zinc-100 border-none">*/}
+              {/*            <CardContent className="px-5 py-4">*/}
+              {/*                <div className="flex flex-col gap-1">*/}
+              {/*                    <div>*/}
+              {/*                        Analyze my spending habits and suggest budget adjustments to free up additional*/}
+              {/*                        savings.*/}
+              {/*                    </div>*/}
+              {/*                </div>*/}
+              {/*            </CardContent>*/}
+              {/*        </Card>*/}
+              {/*    </div>*/}
+              {/*    <div className="flex">*/}
+              {/*        <Card className="shadow-none max-w-[80%] bg-transparent">*/}
+              {/*            <CardContent className="px-5 py-4">*/}
+              {/*                <div className="flex flex-col gap-1">*/}
+              {/*                    <div>*/}
+              {/*                        Based on your household income of RM6000 a month, here’s a quick breakdown:*/}
 
-                                      Total Debt: RM4688 a month
+              {/*                        Total Debt: RM4688 a month*/}
 
-                                      Remaining Income: RM6000 - RM4688 = RM1312
+              {/*                        Remaining Income: RM6000 - RM4688 = RM1312*/}
 
-                                      Suggestions for Budget Adjustments:
+              {/*                        Suggestions for Budget Adjustments:*/}
 
-                                      Groceries (RM800): Shop smart by buying in bulk and using discounts.
-                                      Savings (RM312): Focus on building an emergency fund.
-                                      Others (RM200): Be cautious in using the RM200 in transport and food expenses; consider saving the unused expenses.
-                                      Debt Management: Explore options to consolidate loans or negotiate lower interest rates to ease monthly payments.
+              {/*                        Groceries (RM800): Shop smart by buying in bulk and using discounts.*/}
+              {/*                        Savings (RM312): Focus on building an emergency fund.*/}
+              {/*                        Others (RM200): Be cautious in using the RM200 in transport and food expenses; consider saving the unused expenses.*/}
+              {/*                        Debt Management: Explore options to consolidate loans or negotiate lower interest rates to ease monthly payments.*/}
 
-                                      By adjusting your grocery budget and exploring debt management strategies, you can enhance your financial stability while meeting your family's needs.
-                                  </div>
-                              </div>
-                          </CardContent>
-                      </Card>
-                  </div>
-              </div>
+              {/*                        By adjusting your grocery budget and exploring debt management strategies, you can enhance your financial stability while meeting your family's needs.*/}
+              {/*                    </div>*/}
+              {/*                </div>*/}
+              {/*            </CardContent>*/}
+              {/*        </Card>*/}
+              {/*    </div>*/}
+              {/*</div>*/}
           </div>
           <div>
               <div className="flex w-full max-w-sm items-center space-x-2">
                   <Input type="text" placeholder="Enter your message here" className="h-10"/>
-                  <Button type="submit" size="lg" className="bg-blue-700 hover:bg-blue-700/80">
+                  <Button type="submit" size="lg" className="bg-blue-700 hover:bg-blue-700/80 px-4">
                       <SendIcon />
                   </Button>
               </div>

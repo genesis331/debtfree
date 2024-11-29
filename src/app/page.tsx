@@ -37,6 +37,12 @@ interface DebtDoc {
     type: string;
 }
 
+interface PieChartData {
+    type: string;
+    amount: number;
+    fill: string;
+}
+
 export default function Index() {
 
     const db = getFirestore(app);
@@ -136,7 +142,7 @@ export default function Index() {
     } satisfies ChartConfig
 
     // Debt Ratio
-    const pieChartData = debtSummary.reduce((acc, debt) => {
+    const pieChartData = debtSummary.reduce<PieChartData[]>((acc, debt) => {
 
         // Check if the type already exists in the accumulator
         const existingDebt = acc.find(item => item.type.split(' ').join('_') === debt.type.split(' ').join('_'));
@@ -156,7 +162,7 @@ export default function Index() {
 
     console.log(pieChartData)
 
-    let pieChartConfig = {} satisfies ChartConfig;
+    let pieChartConfig: { [key: string]: { label: string; color?: string } } = {} satisfies ChartConfig;
 
     for (let index = 0; index < pieChartData.length; index++) {
         const { type } = pieChartData[index];
