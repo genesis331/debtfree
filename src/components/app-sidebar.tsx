@@ -12,7 +12,7 @@ import {
     BanknoteIcon,
     CandlestickChartIcon,
     ChartSplineIcon,
-    DollarSignIcon, SettingsIcon,
+    DollarSignIcon, FlaskConicalIcon, SettingsIcon,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -27,30 +27,35 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarContent className="px-2.5">
             <div className="flex-1 flex flex-col gap-4">
                 <Link href="/" onClick={toggleSidebar}>
-                    <Button variant="ghost" className="justify-start py-6 px-4 gap-4 [&_svg]:size-5">
+                    <Button variant="ghost" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
                         <ChartSplineIcon /> Financial Overview
                     </Button>
                 </Link>
                 <Link href="/repayment" onClick={toggleSidebar}>
-                    <Button variant="ghost" className="justify-start py-6 px-4 gap-4 [&_svg]:size-5">
+                    <Button variant="ghost" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
                         <DollarSignIcon /> Debt Repayment
                     </Button>
                 </Link>
                 <Link href="/refinancing" onClick={toggleSidebar}>
-                    <Button variant="ghost" className="justify-start py-6 px-4 gap-4 [&_svg]:size-5">
+                    <Button variant="ghost" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
                         <BanknoteIcon /> Refinancing Options
                     </Button>
                 </Link>
                 <Link href="/investment" onClick={toggleSidebar}>
-                    <Button variant="ghost" className="justify-start py-6 px-4 gap-4 [&_svg]:size-5">
+                    <Button variant="ghost" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
                         <CandlestickChartIcon /> Grow Your Money
                     </Button>
                 </Link>
             </div>
             <div className="pb-8 flex flex-col gap-4">
                 <Link href="/settings" onClick={toggleSidebar}>
-                    <Button variant="ghost" className="justify-start py-6 px-4 gap-4 [&_svg]:size-5">
+                    <Button variant="ghost" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
                         <SettingsIcon /> Settings
+                    </Button>
+                </Link>
+                <Link href="/test" onClick={toggleSidebar}>
+                    <Button variant="ghost" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
+                        <FlaskConicalIcon /> Dev Menu
                     </Button>
                 </Link>
                 <div className="px-3">
