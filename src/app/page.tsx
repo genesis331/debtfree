@@ -219,6 +219,14 @@ export default function Index() {
             label: "Remaining",
             color: "hsl(var(--chart-6))",
         },
+        housingloan: {
+            label: "Housing Loan",
+            color: "hsl(var(--chart-7))",
+        },
+        creditcardbills: {
+            label: "Credit Card Bills",
+            color: "hsl(var(--chart-8))",
+        },
     } satisfies ChartConfig
 
     return (
