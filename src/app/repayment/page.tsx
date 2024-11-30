@@ -3,15 +3,48 @@
 import app from "@/components/firebase";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import SuggestedStrategies from "./suggest-strategy";
-import { ArrowUpDown, SortDescIcon } from "lucide-react";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import { useSearchParams } from "next/navigation";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import React, { useEffect, useState } from "react";
+import { 
+    DropdownMenu, 
+    DropdownMenuContent, 
+    DropdownMenuRadioGroup, 
+    DropdownMenuRadioItem, 
+    DropdownMenuSeparator, 
+    DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { Switch } from "@/components/ui/switch";
+import {
+    ArrowUpDown, 
+    ChartNoAxesCombinedIcon,
+    CrownIcon,
+    MailWarningIcon,
+    PercentIcon
+} from "lucide-react";
+
+// Define the strategy data
+const strategies = [
+    {
+        name: 'avalancbe',
+        label: 'Minimize Interest',
+        icon: <PercentIcon className="text-blue-700" />,
+        additionalIcon: <CrownIcon />
+    },
+    {
+        name: 'avoid-penalties',
+        label: 'Avoid Penalties',
+        icon: <MailWarningIcon className="text-blue-700" />
+    },
+    {
+        name: 'snowball',
+        label: 'Snowball Method',
+        icon: <ChartNoAxesCombinedIcon className="text-blue-700" />
+    }
+];
 
 const chartData = [
     { month: "January", desktop: 186, mobile: 80 },
@@ -77,11 +110,17 @@ export default function Index() {
 
         // Apply sorting order
         return sortOrder === "asc" ? comparison : -comparison;
-    });    
+    });
 
     const searchParams = useSearchParams()
 
     const step = searchParams.get('step')
+
+    const [selectedStrategy, setSelectedStrategy] = useState<string | null>(null);
+
+    const handleButtonClick = (strategy: string) => {
+        setSelectedStrategy(strategy);
+    };
 
     return (
         <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
@@ -144,25 +183,31 @@ export default function Index() {
                         </Card>
                     </div>
                     <div className="flex flex-col gap-3.5">
+                        <div>
+                            <Link href="/repayment?step=2">
+                                <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">Suggest
+                                    Repayment Strategies</Button>
+                            </Link>
+                        </div>
                         <div className="flex justify-between items-center">
                             <div className="font-semibold">All Debts</div>
                             <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline"><ArrowUpDown /> Debt amount</Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-36">
-                                <DropdownMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
-                                    <DropdownMenuRadioItem value="rate">Interest Rate</DropdownMenuRadioItem>
-                                    <DropdownMenuRadioItem value="monthly">Installment</DropdownMenuRadioItem>
-                                    <DropdownMenuRadioItem value="maxTenure">Max Tenure</DropdownMenuRadioItem>
-                                </DropdownMenuRadioGroup>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuRadioGroup value={sortOrder} onValueChange={setSortOrder}>
-                                    <DropdownMenuRadioItem value="asc">Ascending</DropdownMenuRadioItem>
-                                    <DropdownMenuRadioItem value="desc">Descending</DropdownMenuRadioItem>
-                                </DropdownMenuRadioGroup>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="outline"><ArrowUpDown /> Debt amount</Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-36">
+                                    <DropdownMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
+                                        <DropdownMenuRadioItem value="rate">Interest Rate</DropdownMenuRadioItem>
+                                        <DropdownMenuRadioItem value="monthly">Installment</DropdownMenuRadioItem>
+                                        <DropdownMenuRadioItem value="maxTenure">Max Tenure</DropdownMenuRadioItem>
+                                    </DropdownMenuRadioGroup>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuRadioGroup value={sortOrder} onValueChange={setSortOrder}>
+                                        <DropdownMenuRadioItem value="asc">Ascending</DropdownMenuRadioItem>
+                                        <DropdownMenuRadioItem value="desc">Descending</DropdownMenuRadioItem>
+                                    </DropdownMenuRadioGroup>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
                         <div className="flex flex-col gap-4">
                             {sortedDebtSummary.map((elem, index) => (
@@ -180,17 +225,47 @@ export default function Index() {
                                 </Card>
                             ))}
                         </div>
-                        <div>
-                            <Link href="/repayment?step=2">
-                                <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">Suggest
-                                    Repayment Strategies</Button>
-                            </Link>
-                        </div>
                     </div>
                 </div> : null
             }
             {
-                step === "2" ? <SuggestedStrategies /> : null
+                step === "2" ? <div className="flex flex-col gap-6">
+                    <div className="text-3xl font-bold">Suggested Strategies</div>
+                    <div className="flex flex-col gap-3.5">
+                        <div className="font-semibold">Choose 1 strategy</div>
+                        <div className="flex flex-col gap-4">
+                            {strategies.map(({ name, label, icon, additionalIcon }) => (
+                                <Button
+                                    key={name}
+                                    variant="outline"
+                                    className={`w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5 ${selectedStrategy === name ? 'border border-blue-700' : ''}`}
+                                    onClick={() => handleButtonClick(name)}
+                                >
+                                    {icon} {label} {additionalIcon}
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+                    {selectedStrategy && (
+                        <>
+                            <div className="flex">
+                                <div className="flex-1 flex flex-col gap-1.5">
+                                    <div className="text-sm">Auto Debt Repayment</div>
+                                    <div className="text-xs text-zinc-500">Performs repayment based on a set repayment strategy, allowing for seamless debt repayment with lower loss.
+                                    </div>
+                                </div>
+                                <div>
+                                    <Switch className="data-[state=checked]:bg-blue-700" />
+                                </div>
+                            </div>
+                            <Link href="/repayment?step=3">
+                                <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">
+                                    Continue
+                                </Button>
+                            </Link>
+                        </>
+                    )}
+                </div> : null
             }
             {
                 step === "3" ? <div className="flex flex-col gap-6">
