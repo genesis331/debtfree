@@ -99,7 +99,7 @@ export default function Index() {
         return sortOrder === "asc" ? comparison : -comparison;
     });    
 
-    const visibleDocs = showAll ? sortedRefinanceDocs : sortedRefinanceDocs.slice(0, 3);
+    const visibleDocs = showAll ? sortedRefinanceDocs : sortedRefinanceDocs.slice(0, 2);
 
     return (
         <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
