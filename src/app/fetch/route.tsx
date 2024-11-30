@@ -12,5 +12,5 @@ export async function POST(req: NextRequest) {
         },
         body: content
     });
-    return NextResponse.json({ response: response }, { status: 200 });
+    return NextResponse.json({ message: "Hello World" }, { status: 200 });
 }
