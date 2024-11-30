@@ -100,13 +100,13 @@ export default function Index() {
             finance: false,
             loan: false,
         };
-        setMessages([...messages, {content: message, user: 3}]);
+        setMessages((messages) => [...messages, {content: message, user: 3}]);
         await chatSession1.sendMessage(message).then(async (res) => {
             response = JSON.parse(res.response.text());
             console.log(response);
             if (response.finance !== financeDataNeeded) {
                 if (!financeDataNeeded && response.finance) {
-                    setMessages([...messages, {content: "Limited finance data will be shared. ", user: 2}]);
+                    setMessages((messages) => [...messages, {content: "Limited finance data will be shared. ", user: 2}]);
                 }
                 setFinanceDataNeeded(response.finance);
                 const financeDataString = financeData.map((data) => {
@@ -120,7 +120,7 @@ export default function Index() {
             }
             if (response.loan !== debtDataNeeded) {
                 if (!debtDataNeeded && response.loan) {
-                    setMessages([...messages, {content: "Limited debt data will be shared. ", user: 2}]);
+                    setMessages((messages) => [...messages, {content: "Limited debt data will be shared. ", user: 2}]);
                 }
                 setDebtDataNeeded(response.loan);
                 const debtDataString = debtData.map((data) => {
@@ -133,7 +133,7 @@ export default function Index() {
         });
         await chatSession2.sendMessage(message).then((res) => {
             const response = res.response.text();
-            setMessages([...messages, {content: response, user: 1}]);
+            setMessages((messages) => [...messages, {content: response, user: 1}]);
         });
     }
 
@@ -174,7 +174,10 @@ export default function Index() {
                   <div className="flex flex-col gap-2">
                       <div className="text-center text-3xl font-bold">Chat with Bei</div>
                       <div className="flex flex-col gap-4">
-                      <Card className="shadow-none">
+                      <Card className="shadow-none" onClick={() => {
+                          setCurrentMessage("");
+                          sendToModel("Analyze my spending habits and suggest budget adjustments to free up additional savings.");
+                      }}>
                               <CardContent className="px-5 py-4">
                                   <div className="flex flex-col gap-1">
                                       <div>Example prompt 1</div>
@@ -185,7 +188,10 @@ export default function Index() {
                                   </div>
                               </CardContent>
                           </Card>
-                          <Card className="shadow-none">
+                          <Card className="shadow-none" onClick={() => {
+                              setCurrentMessage("");
+                              sendToModel("Give me some advice on setting up emergency funds, investments, or other savings plans like education.");
+                          }}>
                               <CardContent className="px-5 py-4">
                                   <div className="flex flex-col gap-1">
                                       <div>Example prompt 2</div>
@@ -196,7 +202,10 @@ export default function Index() {
                                   </div>
                               </CardContent>
                           </Card>
-                          <Card className="shadow-none">
+                          <Card className="shadow-none" onClick={() => {
+                              setCurrentMessage("");
+                              sendToModel("What are the best practices for managing personal finances?");
+                          }}>
                               <CardContent className="px-5 py-4">
                                   <div className="flex flex-col gap-1">
                                       <div>Example prompt 3</div>
