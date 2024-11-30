@@ -57,6 +57,21 @@ export default function Index() {
         fetchUserData();
     }, []);
 
+    const sendEmail = async (ratio: number | undefined) => {
+        const response = await fetch("/fetch", {
+            method: "POST",
+            body: JSON.stringify({
+                "personalizations": [{
+                    "to": [{"email": "cheah3838@gmail.com"}]
+                }],
+                "from": {"email": "test@zixucheah331.net"},
+                "subject": "Test Email " + new Date().toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true}),
+                "content": [{"type": "text/plain", "value": `Your Debt has exceed ${ratio}% of your asset. This is a test email. Kindly disregard. `}]
+            })
+        })
+        console.log(response)
+    }
+
     const handleUpdateName = async () => {
         setName(nameChange);
         await updateDoc(doc(db, 'user', userId), {
@@ -97,6 +112,7 @@ export default function Index() {
         await updateDoc(doc(db, 'user', userId), {
             'threshold.debt_ratio_pct': debtRatioPctChange
         });
+        sendEmail(debtRatioPctChange);
     }
 
     return (
