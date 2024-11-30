@@ -123,24 +123,24 @@ export default function Index() {
     const totalDebtProgress = ((totalRemaining / totalPrincipal) * 100).toFixed(2);
     const totalDebt = debtSummary.reduce((sum, debt) => sum + debt.installment, 0);
 
-    // Debt vs Asset by Month
-    const debtAssetChartData = Object.entries(assetSummary)
-        .sort(([a], [b]) => (a < b ? -1 : 1)) // Sort by the original month order
-        .map(([month, value]) => ({
-            month: new Date(month + "-01").toLocaleString("default", { month: "short" }), // Convert back to month name
-            asset: value,
-            debt: totalDebt,
-        }));
-    const debtAssetChartConfig = {
-        debt: {
-            label: "Debt",
-            color: "hsl(var(--chart-1))",
-        },
-        asset: {
-            label: "Asset",
-            color: "hsl(var(--chart-2))",
-        },
-    } satisfies ChartConfig
+    // // Debt vs Asset by Month
+    // const debtAssetChartData = Object.entries(assetSummary)
+    //     .sort(([a], [b]) => (a < b ? -1 : 1)) // Sort by the original month order
+    //     .map(([month, value]) => ({
+    //         month: new Date(month + "-01").toLocaleString("default", { month: "short" }), // Convert back to month name
+    //         asset: value,
+    //         debt: totalDebt,
+    //     }));
+    // const debtAssetChartConfig = {
+    //     debt: {
+    //         label: "Debt",
+    //         color: "hsl(var(--chart-1))",
+    //     },
+    //     asset: {
+    //         label: "Asset",
+    //         color: "hsl(var(--chart-2))",
+    //     },
+    // } satisfies ChartConfig
 
     // Debt Ratio
     const pieChartData = debtSummary.reduce<PieChartData[]>((acc, debt) => {
@@ -179,19 +179,51 @@ export default function Index() {
     // Calculate the remaining amount after paying debts
     const remainingAmount = totalAsset - totalDebt
 
-    // Chart data now includes remaining amount
+    // // Chart data now includes remaining amount
+    // const chartData = [
+    //     ...debtSummary.map((debt) => ({
+    //         category: debt.type,
+    //         value: debt.installment,
+    //         fill: "var(--color-" + debt.type.replace(/\s+/g, "").toLowerCase() + ")", // Dynamic color based on category
+    //     })),
+    //     {
+    //         category: "Remaining",
+    //         value: remainingAmount,
+    //         fill: "var(--color-remaining)", // Color for remaining amount
+    //     },
+    // ]
+
+    // Step 1: Aggregate values by category (debt.type)
+    const aggregatedData = debtSummary.reduce((acc, debt) => {
+        // Clean the category name to match the dynamic color convention
+        const category = debt.type.replace(/\s+/g, "").toLowerCase();
+
+        // Sum the values for each category
+        if (!acc[category]) {
+            acc[category] = 0;
+        }
+        acc[category] += debt.installment;
+
+        return acc;
+    }, {} as { [key: string]: number }); // Accumulator with category as key and sum of installments as value
+
+    // Step 2: Prepare chart data by mapping the aggregated values to chart format
     const chartData = [
-        ...debtSummary.map((debt) => ({
-            category: debt.type,
-            value: debt.installment,
-            fill: "var(--color-" + debt.type.replace(/\s+/g, "").toLowerCase() + ")", // Dynamic color based on category
+        ...Object.entries(aggregatedData).map(([category, value]) => ({
+            category: category,
+            value: value,
+            fill: `var(--color-${category})`, // Dynamic color based on category
         })),
+        // Step 3: Append the "Remaining" category
         {
             category: "Remaining",
             value: remainingAmount,
             fill: "var(--color-remaining)", // Color for remaining amount
         },
-    ]
+    ];
+
+    // Example console log to check the result
+    console.log(chartData);
 
 
     const chartConfig = {
@@ -217,7 +249,7 @@ export default function Index() {
         },
         remaining: {
             label: "Remaining",
-            color: "hsl(var(--chart-6))",
+            color: "hsl(var(--chart-8))",
         },
         housingloan: {
             label: "Housing Loan",
@@ -225,7 +257,7 @@ export default function Index() {
         },
         creditcardbills: {
             label: "Credit Card Bills",
-            color: "hsl(var(--chart-8))",
+            color: "hsl(var(--chart-6))",
         },
     } satisfies ChartConfig
 
@@ -311,7 +343,7 @@ export default function Index() {
                         </Link>
                     </CardFooter>
                 </Card>
-                <div className="flex gap-1">
+                <div className="flex gap-3">
                     <div className="flex-1">
                         <Link href="/repayment">
                             <Button className="[&_svg]:size-9 h-24 px-0 py-0 w-full flex-col font-semibold gap-1" variant="outline">
@@ -397,7 +429,7 @@ export default function Index() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="shadow-none">
+                {/* <Card className="shadow-none">
                     <CardContent className="px-5 py-4">
                         <div className="flex flex-col gap-6">
                             <div className="font-semibold">Debt vs Asset by Month</div>
@@ -468,11 +500,11 @@ export default function Index() {
                             </div>
                         </div>
                     </CardContent>
-                </Card>
+                </Card> */}
                 <Card className="shadow-none">
                     <CardContent className="px-5 py-4">
                         <div>
-                            <div className="font-semibold">Debt Ratios</div>
+                            <div className="font-semibold">Remaining Debt Ratios</div>
                             <div>
                                 <ChartContainer
                                     config={pieChartConfig}
@@ -487,7 +519,7 @@ export default function Index() {
                                             data={pieChartData}
                                             dataKey={"amount"}
                                             nameKey={"type"}
-                                            innerRadius={60}
+                                            innerRadius={70}
                                             strokeWidth={5}
                                         >
                                             <Label
@@ -505,7 +537,7 @@ export default function Index() {
                                                                     y={viewBox.cy}
                                                                     className="fill-foreground text-xl font-medium"
                                                                 >
-                                                                    RM{totalDebt.toFixed(2)}
+                                                                    RM{totalRemaining.toFixed(2)}
                                                                 </tspan>
                                                                 <tspan
                                                                     x={viewBox.cx}
