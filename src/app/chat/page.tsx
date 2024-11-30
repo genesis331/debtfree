@@ -173,14 +173,12 @@ export default function Index() {
                               {
                                   isReplying ? <div className="flex">
                                       <Card
-                                          className="shadow-none max-w-[80%] bg-transparent">
+                                          className="shadow-none w-[80%] bg-transparent">
                                           <CardContent className="px-5 py-3">
                                               <div className="flex flex-col gap-1">
-                                                  <div className="flex items-center space-x-4">
-                                                      <div className="space-y-2">
-                                                          <Skeleton className="h-4 w-[350px]"/>
-                                                          <Skeleton className="h-4 w-[200px]"/>
-                                                      </div>
+                                                  <div className="flex flex-col space-y-2">
+                                                      <Skeleton className="h-4 w-full"/>
+                                                      <Skeleton className="h-4 w-[70%]"/>
                                                   </div>
                                               </div>
                                           </CardContent>
