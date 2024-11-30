@@ -167,7 +167,7 @@ export default function Index() {
                       </div>
                   </ScrollArea>
               </div> : <div className="flex-1 flex flex-col justify-center gap-6">
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-4">
                       <div className="text-center text-3xl font-bold">Chat with Bei</div>
                       <div className="flex flex-col gap-4">
                       <Card className="shadow-none cursor-pointer hover:bg-zinc-50" onClick={() => {
@@ -217,7 +217,7 @@ export default function Index() {
               </div>
           }
           <div>
-              <div className="flex w-full max-w-sm items-center space-x-2">
+              <div className="flex w-full items-center space-x-2">
                   <Input type="text" placeholder="Enter your message here" className="h-10" value={currentMessage}
                          onChange={(e) => {
                              setCurrentMessage(e.target.value)
