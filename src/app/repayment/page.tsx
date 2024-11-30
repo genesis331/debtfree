@@ -98,6 +98,8 @@ export default function Index() {
     const [incExpSummary, setIncExpSymmary] = useState<{ month: string, inc: number, exp: number }[]>([]);
     const [sortBy, setSortBy] = useState<string>("rate");
     const [sortOrder, setSortOrder] = useState<string>("asc");
+    const searchParams = useSearchParams()
+    const step = searchParams.get('step')
 
     const fetchDebtData = async () => {
         const debtCollection = collection(db, "debt");
@@ -149,6 +151,13 @@ export default function Index() {
         fetchFinanceData()
     }, []);
 
+    useEffect(() => {
+        if (step !== "3") {
+            fetchDebtData();
+            fetchFinanceData()
+        }
+    }, [step]);
+
     const incArray = incExpSummary.map(item => item.inc);
     const expArray = incExpSummary.map(item => item.exp);
 
@@ -173,12 +182,6 @@ export default function Index() {
         // Apply sorting order
         return sortOrder === "asc" ? comparison : -comparison;
     });
-
-    console.log('chkpt', debtSummary)
-
-    const searchParams = useSearchParams()
-
-    const step = searchParams.get('step')
 
     const [selectedStrategy, setSelectedStrategy] = useState<string | null>(null);
     const [debtAfterSort, setDebtAfterSort] = useState<DebtDoc[]>();
