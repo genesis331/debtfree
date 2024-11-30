@@ -9,6 +9,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {collection, getDocs, getFirestore} from "firebase/firestore";
 import app from "@/components/firebase";
+import Markdown from "react-markdown";
+import {Skeleton} from "@/components/ui/skeleton";
 
 type Message = {
     content: string;
@@ -54,6 +56,7 @@ export default function Index() {
     const [debtData, setDebtData] = useState<DebtDoc[]>([]);
     const [financeDataNeeded, setFinanceDataNeeded] = useState<boolean>(false);
     const [debtDataNeeded, setDebtDataNeeded] = useState<boolean>(false);
+    const [isReplying, setIsReplying] = useState<boolean>(false);
 
     const fetchFinanceData = async () => {
         const financeCollection = collection(db, "finance");
@@ -101,6 +104,7 @@ export default function Index() {
             loan: false,
         };
         setMessages((messages) => [...messages, {content: message, user: 3}]);
+        setIsReplying(true);
         await chatSession1.sendMessage(message).then(async (res) => {
             response = JSON.parse(res.response.text());
             console.log(response);
@@ -130,6 +134,7 @@ export default function Index() {
         await chatSession2.sendMessage(message).then((res) => {
             const response = res.response.text();
             setMessages((messages) => [...messages, {content: response, user: 1}]);
+            setIsReplying(false);
         });
     }
 
@@ -140,7 +145,9 @@ export default function Index() {
                     <Card className={`shadow-none max-w-[80%] ${user === 3 ? "bg-zinc-100 border-none" : "bg-transparent"}`}>
                         <CardContent className="px-5 py-3">
                             <div className="flex flex-col gap-1">
-                                <div>{message}</div>
+                                <div>
+                                    <Markdown>{message}</Markdown>
+                                </div>
                             </div>
                         </CardContent>
                     </Card>
@@ -163,6 +170,23 @@ export default function Index() {
                       <div className="flex flex-col justify-start gap-6">
                           <div className="flex flex-col gap-2">
                               {messages.map((message, index) => generateChatBubble(message.content, message.user, index))}
+                              {
+                                  isReplying ? <div className="flex">
+                                      <Card
+                                          className="shadow-none max-w-[80%] bg-transparent">
+                                          <CardContent className="px-5 py-3">
+                                              <div className="flex flex-col gap-1">
+                                                  <div className="flex items-center space-x-4">
+                                                      <div className="space-y-2">
+                                                          <Skeleton className="h-4 w-[350px]"/>
+                                                          <Skeleton className="h-4 w-[200px]"/>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </CardContent>
+                                      </Card>
+                                  </div> : null
+                              }
                           </div>
                       </div>
                   </ScrollArea>
@@ -170,10 +194,11 @@ export default function Index() {
                   <div className="flex flex-col gap-4">
                       <div className="text-center text-3xl font-bold">Chat with Bei</div>
                       <div className="flex flex-col gap-4">
-                      <Card className="shadow-none cursor-pointer hover:bg-zinc-50" onClick={() => {
-                          setCurrentMessage("");
-                          sendToModel("Analyze my spending habits and suggest budget adjustments to free up additional savings.").then(() => {});
-                      }}>
+                          <Card className="shadow-none cursor-pointer hover:bg-zinc-50" onClick={() => {
+                              setCurrentMessage("");
+                              sendToModel("Analyze my spending habits and suggest budget adjustments to free up additional savings.").then(() => {
+                              });
+                          }}>
                               <CardContent className="px-5 py-4">
                                   <div className="flex flex-col gap-1">
                                       <div>Example prompt 1</div>
