@@ -23,7 +23,7 @@ export default function RootLayout({
           >
               <SidebarProvider>
                   <AppSidebar />
-                  <div className="flex-1">
+                  <div className="flex-1 flex flex-col">
                       <NavBar />
                       <Suspense>
                           {children}
