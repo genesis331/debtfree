@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Area, AreaChart, CartesianGrid, Label, Pie, PieChart, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, Label, Pie, PieChart, Sector, XAxis } from "recharts";
 import { Progress } from "@/components/ui/progress";
 import { BanknoteIcon, CandlestickChartIcon, DollarSignIcon, PencilIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import app from "@/components/firebase";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { PieSectorDataItem } from "recharts/types/polar/Pie";
 
 interface FinanceDoc {
     month: { seconds: number };
@@ -243,8 +244,22 @@ export default function Index() {
                                     data={chartData}
                                     dataKey="value"
                                     nameKey="category"
-                                    innerRadius={60}
+                                    innerRadius={70}
                                     strokeWidth={5}
+                                    activeIndex={chartData.length - 1}
+                                    activeShape={({
+                                        outerRadius = 0,
+                                        ...props
+                                    }: PieSectorDataItem) => (
+                                        <g>
+                                            <Sector {...props} outerRadius={outerRadius + 10} />
+                                            <Sector
+                                                {...props}
+                                                outerRadius={outerRadius + 25}
+                                                innerRadius={outerRadius + 12}
+                                            />
+                                        </g>
+                                    )}
                                 >
                                     <Label
                                         content={({ viewBox }) => {
@@ -279,6 +294,16 @@ export default function Index() {
                             </PieChart>
                         </ChartContainer>
                     </CardContent>
+                    <CardFooter className="justify-center">
+                        <Link href="/settings" className="flex items-center text-red-600">
+                            <div className="flex-1">RM800 kept from debt repayment</div>
+                            <div>
+                                <Button className="px-2" variant="ghost">
+                                    <PencilIcon />
+                                </Button>
+                            </div>
+                        </Link>
+                    </CardFooter>
                 </Card>
                 <Card className="shadow-none">
                     <CardContent className="px-4 py-4">
