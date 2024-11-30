@@ -6,6 +6,7 @@ import { PencilIcon } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription, DialogFooter,
     DialogHeader,
@@ -42,7 +43,7 @@ export default function Index() {
     const [debtRatioPctChange, setDebtRatioPctChange] = useState<number>();
 
     const fetchUserData = async () => {
-        
+
         const userSnapshot = await getDoc(doc(db, 'user', userId));
         setName(userSnapshot.data()?.name);
         setEmail(userSnapshot.data()?.email);
@@ -72,18 +73,30 @@ export default function Index() {
 
     const handleUpdateAlertNoti = async () => {
         setAlertNoti(!alertNoti);
+        await updateDoc(doc(db, 'user', userId), {
+            'toggles.alert_notification': !alertNoti
+        });
     }
 
-    const handleUpdateGeneralNoti = () => {
+    const handleUpdateGeneralNoti = async () => {
         setGeneralNoti(!generalNoti);
+        await updateDoc(doc(db, 'user', userId), {
+            'toggles.general_notification': !generalNoti
+        });
     }
 
-    const handleUpdateAmtKept = () => {
+    const handleUpdateAmtKept = async () => {
         setAmtKept(amtKeptChange);
+        await updateDoc(doc(db, 'user', userId), {
+            'threshold.amt_kept': amtKeptChange
+        });
     }
 
-    const handleUpdateRatio = () => {
+    const handleUpdateRatio = async () => {
         setDebtRatioPct(debtRatioPctChange);
+        await updateDoc(doc(db, 'user', userId), {
+            'threshold.debt_ratio_pct': debtRatioPctChange
+        });
     }
 
     return (
@@ -113,12 +126,15 @@ export default function Index() {
                                             </DialogHeader>
                                             <div className="flex flex-col w-full gap-1.5">
                                                 <Label htmlFor="name">Full Name</Label>
-                                                <Input type="text" id="name" className="h-10" onChange={(e) => setNameChange(e.target.value)}/>
+                                                <Input type="text" id="name" className="h-10" onChange={(e) => setNameChange(e.target.value)} />
                                             </div>
                                             <DialogFooter>
-                                                <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg" onClick={handleUpdateName}>
-                                                    Save
-                                                </Button>
+
+                                                <DialogClose asChild>
+                                                    <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg" onClick={handleUpdateName}>
+                                                        Save
+                                                    </Button>
+                                                </DialogClose>
                                             </DialogFooter>
                                         </DialogContent>
                                     </Dialog>
@@ -147,12 +163,14 @@ export default function Index() {
                                             </DialogHeader>
                                             <div className="flex flex-col w-full gap-1.5">
                                                 <Label htmlFor="email">Email Address</Label>
-                                                <Input type="email" id="email" className="h-10" onChange={(e) => setEmailChange(e.target.value)}/>
+                                                <Input type="email" id="email" className="h-10" onChange={(e) => setEmailChange(e.target.value)} />
                                             </div>
                                             <DialogFooter>
-                                                <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg" onClick={handleUpdateEmail}>
-                                                    Save
-                                                </Button>
+                                                <DialogClose asChild>
+                                                    <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg" onClick={handleUpdateEmail}>
+                                                        Save
+                                                    </Button>
+                                                </DialogClose>
                                             </DialogFooter>
                                         </DialogContent>
                                     </Dialog>
@@ -250,12 +268,15 @@ export default function Index() {
                                             </DialogHeader>
                                             <div className="flex flex-col w-full gap-1.5">
                                                 <Label htmlFor="name">Debt-to-Asset Ratio</Label>
-                                                <Input type="number" id="name" className="h-10" onChange={(e) => setDebtRatioPctChange(+e.target.value)}/>
+                                                <Input type="number" id="name" className="h-10" onChange={(e) => setDebtRatioPctChange(+e.target.value)} />
                                             </div>
                                             <DialogFooter>
-                                                <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg" onClick={handleUpdateRatio}>
-                                                    Save
-                                                </Button>
+
+                                                <DialogClose asChild>
+                                                    <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg" onClick={handleUpdateRatio}>
+                                                        Save
+                                                    </Button>
+                                                </DialogClose>
                                             </DialogFooter>
                                         </DialogContent>
                                     </Dialog>
@@ -284,12 +305,15 @@ export default function Index() {
                                             </DialogHeader>
                                             <div className="flex flex-col w-full gap-1.5">
                                                 <Label htmlFor="name">Amount</Label>
-                                                <Input type="number" id="name" className="h-10" onChange={(e) => setAmtKeptChange(+e.target.value)}/>
+                                                <Input type="number" id="name" className="h-10" onChange={(e) => setAmtKeptChange(+e.target.value)} />
                                             </div>
                                             <DialogFooter>
-                                                <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg" onClick={handleUpdateAmtKept}>
-                                                    Save
-                                                </Button>
+
+                                                <DialogClose asChild>
+                                                    <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg" onClick={handleUpdateAmtKept}>
+                                                        Save
+                                                    </Button>
+                                                </DialogClose>
                                             </DialogFooter>
                                         </DialogContent>
                                     </Dialog>
