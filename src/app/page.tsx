@@ -160,8 +160,6 @@ export default function Index() {
         return acc;
     }, []);
 
-    console.log(pieChartData)
-
     let pieChartConfig: { [key: string]: { label: string; color?: string } } = {} satisfies ChartConfig;
 
     for (let index = 0; index < pieChartData.length; index++) {
@@ -176,40 +174,6 @@ export default function Index() {
     pieChartConfig["amount"] = {
         label: "Remaining Amount"
     };
-
-    // pieChartConfig satisfies ChartConfig;
-
-    console.log(pieChartConfig)
-    // {
-    //     visitors: {
-    //         label: "Visitors",
-    //     },
-    //     chrome: {
-    //         label: "Chrome",
-    //         color: "hsl(var(--chart-1))",
-    //     },
-    //     safari: {
-    //         label: "Safari",
-    //         color: "hsl(var(--chart-2))",
-    //     },
-    //     firefox: {
-    //         label: "Firefox",
-    //         color: "hsl(var(--chart-3))",
-    //     },
-    //     edge: {
-    //         label: "Edge",
-    //         color: "hsl(var(--chart-4))",
-    //     },
-    //     other: {
-    //         label: "Other",
-    //         color: "hsl(var(--chart-5))",
-    //     },
-    // } satisfies ChartConfig
-
-    console.log(sourceSummary);
-
-    // // Example income value
-    // const income = 9000;
 
     // Calculate the remaining amount after paying debts
     const remainingAmount = totalAsset - totalDebt
