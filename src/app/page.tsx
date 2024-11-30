@@ -1,10 +1,10 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, Label, Pie, PieChart, XAxis } from "recharts";
 import { Progress } from "@/components/ui/progress";
-import {BanknoteIcon, CandlestickChartIcon, DollarSignIcon, PencilIcon} from "lucide-react";
+import { BanknoteIcon, CandlestickChartIcon, DollarSignIcon, PencilIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import app from "@/components/firebase";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
@@ -150,8 +150,8 @@ export default function Index() {
         if (existingDebt) {
             existingDebt.amount += debt.remaining;
         } else {
-            acc.push({ 
-                type: debt.type.split(' ').join('_'), 
+            acc.push({
+                type: debt.type.split(' ').join('_'),
                 amount: debt.remaining,
                 fill: `var(--color-${debt.type.split(' ').join('_')})`
             });
@@ -171,7 +171,7 @@ export default function Index() {
             color: `hsl(var(--chart-${index + 1}))`,  // Assign a color based on index
         };
     }
-    
+
     // Add the "Remaining Amount" to the config
     pieChartConfig["amount"] = {
         label: "Remaining Amount"
@@ -208,35 +208,139 @@ export default function Index() {
 
     console.log(sourceSummary);
 
+    // // Example income value
+    // const income = 9000;
+
+    // Calculate the remaining amount after paying debts
+    const remainingAmount = totalAsset - totalDebt
+
+    // Chart data now includes remaining amount
+    const chartData = [
+        ...debtSummary.map((debt) => ({
+            category: debt.type,
+            value: debt.installment,
+            fill: "var(--color-" + debt.type.replace(/\s+/g, "").toLowerCase() + ")", // Dynamic color based on category
+        })),
+        {
+            category: "Remaining",
+            value: remainingAmount,
+            fill: "var(--color-remaining)", // Color for remaining amount
+        },
+    ]
+
+
+    const chartConfig = {
+        homeloan: {
+            label: "Home Loan",
+            color: "hsl(var(--chart-1))",
+        },
+        vehicleloan: {
+            label: "Vehicle Loan",
+            color: "hsl(var(--chart-2))",
+        },
+        personalloan: {
+            label: "Personal Loan",
+            color: "hsl(var(--chart-3))",
+        },
+        educationloan: {
+            label: "Education Loan",
+            color: "hsl(var(--chart-4))",
+        },
+        creditcard: {
+            label: "Credit Card",
+            color: "hsl(var(--chart-5))",
+        },
+        remaining: {
+            label: "Remaining",
+            color: "hsl(var(--chart-6))",
+        },
+    } satisfies ChartConfig
+
     return (
         <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
-            <div className="text-3xl font-bold">Welcome, <span className="text-blue-700">Ahmad Iskandar</span></div>
+            {/* <div className="text-3xl font-bold">Welcome, <span className="text-blue-700">Ahmad Iskandar</span></div> */}
             <div className="flex flex-col gap-5">
+                <Card className="flex flex-col">
+                    <CardHeader className="items-center pb-0">
+                        <CardTitle>Debt and Remaining Amount</CardTitle>
+                        <CardDescription>January - June 2024</CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-1 pb-0">
+                        <ChartContainer
+                            config={chartConfig}
+                            className="mx-auto aspect-square max-h-[250px]"
+                        >
+                            <PieChart>
+                                <ChartTooltip
+                                    cursor={false}
+                                    content={<ChartTooltipContent hideLabel />}
+                                />
+                                <Pie
+                                    data={chartData}
+                                    dataKey="value"
+                                    nameKey="category"
+                                    innerRadius={60}
+                                    strokeWidth={5}
+                                >
+                                    <Label
+                                        content={({ viewBox }) => {
+                                            if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                                                return (
+                                                    <text
+                                                        x={viewBox.cx}
+                                                        y={viewBox.cy}
+                                                        textAnchor="middle"
+                                                        dominantBaseline="middle"
+                                                    >
+                                                        <tspan
+                                                            x={viewBox.cx}
+                                                            y={viewBox.cy}
+                                                            className="fill-foreground text-3xl font-bold"
+                                                        >
+                                                            {totalAsset.toLocaleString()}
+                                                        </tspan>
+                                                        <tspan
+                                                            x={viewBox.cx}
+                                                            y={(viewBox.cy || 0) + 24}
+                                                            className="fill-muted-foreground"
+                                                        >
+                                                            Income (RM)
+                                                        </tspan>
+                                                    </text>
+                                                )
+                                            }
+                                        }}
+                                    />
+                                </Pie>
+                            </PieChart>
+                        </ChartContainer>
+                    </CardContent>
+                </Card>
                 <Card className="shadow-none">
                     <CardContent className="px-4 py-4">
                         <div className="flex justify-between">
                             <Link href="/repayment">
                                 <Button className="[&_svg]:size-9 h-16 w-24 flex-col font-semibold gap-1" variant="ghost">
-                                    <DollarSignIcon/>
+                                    <DollarSignIcon />
                                     Repayment
                                 </Button>
                             </Link>
                             <Link href="/refinancing">
                                 <Button className="[&_svg]:size-9 h-16 w-24 flex-col font-semibold gap-1" variant="ghost">
-                                    <BanknoteIcon/>
+                                    <BanknoteIcon />
                                     Refinancing
                                 </Button>
                             </Link>
                             <Link href="/investment">
                                 <Button className="[&_svg]:size-9 h-16 w-24 flex-col font-semibold gap-1" variant="ghost">
-                                    <CandlestickChartIcon/>
+                                    <CandlestickChartIcon />
                                     Investment
                                 </Button>
                             </Link>
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="shadow-none">
+                {/* <Card className="shadow-none">
                     <CardContent className="px-5 py-4">
                         <div className="flex flex-col gap-3">
                             <div className="font-semibold">Total Asset</div>
@@ -247,7 +351,7 @@ export default function Index() {
                                     <div>
                                         <Link href="/settings">
                                             <Button className="px-2" variant="ghost">
-                                                <PencilIcon/>
+                                                <PencilIcon />
                                             </Button>
                                         </Link>
                                     </div>
@@ -255,9 +359,9 @@ export default function Index() {
                                 <div className="flex overflow-hidden rounded-full h-3">
                                     {sourceSummary.length > 0 ? <>
                                         <div className="bg-blue-700"
-                                             style={{width: `${sourceSummary[0].amt / totalAsset * 100}%`}}></div>
+                                            style={{ width: `${sourceSummary[0].amt / totalAsset * 100}%` }}></div>
                                         <div className="bg-blue-300"
-                                             style={{width: `${sourceSummary[1].amt / totalAsset * 100}%`}}></div>
+                                            style={{ width: `${sourceSummary[1].amt / totalAsset * 100}%` }}></div>
                                     </> : null}
                                 </div>
                                 <div className="flex flex-wrap items-center text-xs pt-2 gap-x-5 gap-y-2">
@@ -273,7 +377,7 @@ export default function Index() {
                             </div>
                         </div>
                     </CardContent>
-                </Card>
+                </Card> */}
                 <Card className="shadow-none">
                     <CardContent className="px-5 py-4">
                         <div className="flex flex-col gap-3">
@@ -287,7 +391,7 @@ export default function Index() {
                                         <div key={index} className="flex items-center gap-5">
                                             <div className="w-1/2">{debt.name}</div>
                                             <div className="flex-1"><Progress value={debt.progress}
-                                                                              className="bg-blue-700/20 *:bg-blue-700"/>
+                                                className="bg-blue-700/20 *:bg-blue-700" />
                                             </div>
                                         </div>
                                     ))}
