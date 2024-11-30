@@ -65,8 +65,26 @@ export default function Index() {
                     "to": [{"email": "cheah3838@gmail.com"}]
                 }],
                 "from": {"email": "test@zixucheah331.net"},
-                "subject": "Test Email " + new Date().toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true}),
-                "content": [{"type": "text/plain", "value": `Your Debt has exceed ${ratio}% of your asset. This is a test email. Kindly disregard. `}]
+                "subject": "Important Notice: Review of Your Financial Position",
+                "content": [{"type": "text/plain", "value": `Dear ${name},
+
+We've recently reviewed your financial account and noticed that your current debt-to-asset ratio has exceeded ${ratio}%. This means that your outstanding debts now represent a significant portion of your total assets.
+                    
+What does this mean?
+                    
+A high debt-to-asset ratio can indicate potential financial strain. It may limit your ability to:
+Secure future loans: Lenders often consider this ratio when assessing creditworthiness.
+Weather financial emergencies: Unexpected expenses can become more challenging to handle.
+Achieve long-term financial goals: Saving for retirement, buying a home, or starting a business may be hindered.
+   
+What can you do?
+    
+We encourage you to take proactive steps to improve your financial situation:
+Review your budget: Analyze your income and expenses to identify areas where you can cut back.
+Create a debt repayment plan: Prioritize high-interest debts and allocate funds to pay them off.
+Consider debt consolidation: Combining multiple debts into a single loan may help simplify payments and reduce interest rates.
+Seek professional advice: A financial advisor can provide personalized guidance and strategies to improve your financial health.
+`}]
             })
         })
         console.log(response)
