@@ -2,8 +2,17 @@
 
 import app from "@/components/firebase";
 import { Card, CardContent } from "@/components/ui/card";
-import { FilterIcon } from "lucide-react";
+import { ArrowUpDown, FilterIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuCheckboxItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
@@ -17,14 +26,19 @@ interface LoanDoc {
 }
 
 export default function Index() {
-
     const db = getFirestore(app);
     const [refinanceDocs, setRefinanceDocs] = useState<LoanDoc[]>([]);
     const [showAll, setShowAll] = useState(false);
 
+    // State for filtering
+    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+
+    // State for sorting options
+    const [sortBy, setSortBy] = useState<string>("rate"); // Sorting criteria
+    const [sortOrder, setSortOrder] = useState<string>("asc"); // Sorting order
+
     useEffect(() => {
         const fetchData = async () => {
-
             const refinanceCollection = collection(db, "refinance");
             const refinancneSnapshot = await getDocs(refinanceCollection);
             const refinanceList: LoanDoc[] = refinancneSnapshot.docs.map((doc) => {
@@ -38,21 +52,52 @@ export default function Index() {
                     url: data.url,
                 };
             });
-
-            // Update the state
             setRefinanceDocs(refinanceList);
         };
 
         fetchData();
     }, []);
 
-    let by = "s"
+    const uniqueTypes = Array.from(new Set(refinanceDocs.map(doc => doc.type)));
 
-    const sortedRefinanceDocs = refinanceDocs.sort((a, b) => {
-        return (by === 'rate') 
-            ? +a.rate.replace("%", "") - +b.rate.replace("%", "") 
-            : +a.monthly.replace("RM", "").replace(/,/g, "") - +b.monthly.replace("RM", "").replace(/,/g, "");
-    })
+    // Handle checkbox change
+    const handleTypeChange = (type: string, checked: boolean) => {
+        setSelectedTypes((prev) => {
+            if (checked) {
+                return [...prev, type];
+            } else {
+                return prev.filter(t => t !== type);
+            }
+        });
+    };
+
+    // Filter the refinanceDocs based on selected types
+    const filteredDocs = refinanceDocs.filter(doc => 
+        selectedTypes.length === 0 || selectedTypes.includes(doc.type)
+    );
+
+    // Sort the refinanceDocs based on the selected sorting criteria and order
+    const sortedRefinanceDocs = filteredDocs.sort((a, b) => {
+        let comparison = 0;
+
+        // Compare based on the selected criteria
+        if (sortBy === "rate") {
+            const rateA = parseFloat(a.rate.replace("%", ""));
+            const rateB = parseFloat(b.rate.replace("%", ""));
+            comparison = rateA - rateB;
+        } else if (sortBy === "monthly") {
+            const monthlyA = parseFloat(a.monthly.replace("RM", "").replace(/,/g, ""));
+            const monthlyB = parseFloat(b.monthly.replace("RM", "").replace(/,/g, ""));
+            comparison = monthlyA - monthlyB;
+        } else if (sortBy === "maxTenure") {
+            const tenureA = parseInt(a.maxTenure.replace(" years", ""), 10);
+            const tenureB = parseInt(b.maxTenure.replace(" years", ""), 10);
+            comparison = tenureA - tenureB;
+        }
+
+        // Apply sorting order
+        return sortOrder === "asc" ? comparison : -comparison;
+    });    
 
     const visibleDocs = showAll ? sortedRefinanceDocs : sortedRefinanceDocs.slice(0, 3);
 
@@ -85,11 +130,43 @@ export default function Index() {
                 </div>
             </div>
             <div className="flex flex-col gap-3.5">
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <div>Popular offers</div>
-                    <Button variant="ghost" className="px-0 py-0 h-min text-zinc-500">
-                        <FilterIcon /> All Loans
-                    </Button>
+                    <div className="flex flex-row gap-3">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline"><FilterIcon /> All Loan</Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-36">
+                                {uniqueTypes.map((type) => (
+                                    <DropdownMenuCheckboxItem 
+                                        key={type} 
+                                        checked={selectedTypes.includes(type)} 
+                                        onCheckedChange={(checked) => handleTypeChange(type, checked)}
+                                    >
+                                        {type}
+                                    </DropdownMenuCheckboxItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline"><ArrowUpDown /> Sort by</Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-36">
+                                <DropdownMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
+                                    <DropdownMenuRadioItem value="rate">Interest Rate</DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem value="monthly">Installment</DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem value="maxTenure">Max Tenure</DropdownMenuRadioItem>
+                                </DropdownMenuRadioGroup>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuRadioGroup value={sortOrder} onValueChange={setSortOrder}>
+                                    <DropdownMenuRadioItem value="asc">Ascending</DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem value="desc">Descending</DropdownMenuRadioItem>
+                                </DropdownMenuRadioGroup>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                 </div>
                 <div className="flex flex-col gap-4">
                     {visibleDocs.map((elem) => (
@@ -117,8 +194,8 @@ export default function Index() {
                     ))}
                 </div>
                 <div className="text-center font-medium text-zinc-500 text-sm">
-                    {showAll 
-                        ? <Button variant="ghost" onClick={() => setShowAll(false)}>Collapse</Button> 
+                    {showAll
+                        ? <Button variant="ghost" onClick={() => setShowAll(false)}>Collapse</Button>
                         : <Button variant="ghost" onClick={() => setShowAll(true)}>View more offers</Button>
                     }
                 </div>
