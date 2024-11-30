@@ -14,7 +14,7 @@ export default function Index() {
     }
 
     const sendEmail = async () => {
-        const response = await fetch("https://debtfree-proxy.zixucheah331.workers.dev/", {
+        const response = await fetch("/fetch", {
             method: "POST",
             body: JSON.stringify(content)
         })
