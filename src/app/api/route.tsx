@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 const ARIMA = require('arima');
 
+export const runtime = 'edge';
 // To handle a GET request to /api
 export async function GET() {
     // Synthesize timeseries
