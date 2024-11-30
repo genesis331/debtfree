@@ -10,76 +10,84 @@ const firestore = admin.firestore();
 
 const data = [
     {
-        "name": "PTPTN Zaina",
-        "type": "Education Loan",
-        "term_month": 180,
-        "interest_pct": 1,
-        "installment": 319.44,
-        "principal": 50000,
-        "remaining": 46805.6
-    },
-    {
-        "name": "Setia Residency",
+        "name": "BOC Home Loan",
+        "monthly": "RM 2,352.62",
+        "rate": "3.88%",
+        "maxTenure": "35 Years",
         "type": "Housing Loan",
-        "term_month": 420,
-        "interest_pct": 4.5,
-        "installment": 2342.63,
-        "principal": 560000,
-        "remaining": 503776.88
+        "url": ""
     },
     {
-        "name": "Toyota Civic",
-        "type": "Vehicle Loan",
-        "term_month": 54,
-        "interest_pct": 3.4,
-        "installment": 1194.99,
-        "principal": 109800,
-        "remaining": 95460.12
+        "name": "CIMB Flexi Home Financing-i",
+        "monthly": "RM 2,489.06",
+        "rate": "4.35%",
+        "maxTenure": "35 Years",
+        "type": "Housing Loan",
+        "url": ""
     },
     {
-        "name": "Maybank",
-        "type": "Credit Card Bills",
-        "term_month": 12,
-        "interest_pct": 5,
-        "installment": 262.5,
-        "principal": 3000,
-        "remaining": 1425
+        "name": "RHB My1 Full Flexi Home Loan",
+        "monthly": "RM 2,593.19",
+        "rate": "4.7%",
+        "maxTenure": "35 Years",
+        "type": "Housing Loan",
+        "url": ""
     },
     {
-        "name": "Islamic Financing",
-        "type": "Personal Loan",
-        "term_month": 12,
-        "interest_pct": 0,
-        "installment": 150,
-        "principal": 1800,
-        "remaining": 900
+        "name": "Alliance Conventional Home Financing",
+        "monthly": "RM 2,838.95",
+        "rate": "5.5%",
+        "maxTenure": "35 Years",
+        "type": "Housing Loan",
+        "url": ""
     },
     {
-        "name": "PTPTN Haziq",
-        "type": "Education Loan",
-        "term_month": 180,
-        "interest_pct": 1,
-        "installment": 638.89,
-        "principal": 100000,
-        "remaining": 89138.87
+        "name": "MortgageOne™",
+        "monthly": "RM 2,358.34",
+        "rate": "3.9%",
+        "maxTenure": "35 Years",
+        "type": "Housing Loan",
+        "url": ""
     },
     {
-        "name": "Perodua Myvi",
-        "type": "Vehicle Loan",
-        "term_month": 54,
-        "interest_pct": 3.5,
-        "installment": 852.31,
-        "principal": 70000,
-        "remaining": 44430.7
+        "name": "Saadiq My HomeOne-i",
+        "monthly": "RM 2,358.34",
+        "rate": "3.9%",
+        "maxTenure": "35 Years",
+        "type": "Housing Loan",
+        "url": ""
     },
     {
-        "name": "Bank Islam",
-        "type": "Credit Card Bills",
-        "term_month": 12,
-        "interest_pct": 4.5,
-        "installment": 348.33,
-        "principal": 4000,
-        "remaining": 1910.02
+        "name": "Al-Amali Home Financing-i",
+        "monthly": "RM 2,445.09",
+        "rate": "4.2%",
+        "maxTenure": "35 Years",
+        "type": "Housing Loan",
+        "url": ""
+    },
+    {
+        "name": "Alliance One Account",
+        "monthly": "RM 2,838.95",
+        "rate": "5.5%",
+        "maxTenure": "35 Years",
+        "type": "Housing Loan",
+        "url": ""
+    },
+    {
+        "name": "SMART Mortgage Home Financing",
+        "monthly": "RM 2,518.59",
+        "rate": "4.45%",
+        "maxTenure": "35 Years",
+        "type": "Housing Loan",
+        "url": ""
+    },
+    {
+        "name": "Maybank MaxiPlan",
+        "monthly": "RM 1,701.71",
+        "rate": "1.4%",
+        "maxTenure": "30 Years",
+        "type": "Housing Loan",
+        "url": ""
     }
 ]
 
@@ -87,7 +95,7 @@ const insertData = async () => {
     try {
         for (const item of data) {
 
-            const docRef = await firestore.collection("debt").add(item);
+            const docRef = await firestore.collection("refinance").add(item);
             console.log("Document written with ID: ", docRef.id);
         }
     } catch (e) {
