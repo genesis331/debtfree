@@ -384,9 +384,9 @@ export default function Index() {
                                                 />
                                                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                                                 <Line
-                                                    dataKey="expenses"
+                                                    dataKey="expense"
                                                     type="monotone"
-                                                    stroke="var(--color-expenses)"
+                                                    stroke="var(--color-expense)"
                                                     strokeWidth={2}
                                                     dot={false}
                                                 />
