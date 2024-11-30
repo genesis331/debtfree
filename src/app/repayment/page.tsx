@@ -33,9 +33,15 @@ const strategies = [
     {
         name: 'avalanche',
         label: 'Debt Avalanche',
-        desc: 'Pay largest interest debt first',
+        desc: 'Pay highest interest debt first',
         icon: <PercentIcon className="text-blue-700" />,
         additionalIcon: <CrownIcon />
+    },
+    {
+        name: 'snowball',
+        label: 'Snowball Method',
+        desc: 'Pay smallest remaining first',
+        icon: <ChartNoAxesCombinedIcon className="text-blue-700" />
     },
     {
         name: 'penalties',
@@ -43,12 +49,6 @@ const strategies = [
         desc: '',
         icon: <MailWarningIcon className="text-blue-700" />
     },
-    {
-        name: 'snowball',
-        label: 'Snowball Method',
-        desc: 'Pay lowest remaining first',
-        icon: <ChartNoAxesCombinedIcon className="text-blue-700" />
-    }
 ];
 
 const chartData = [
@@ -380,10 +380,18 @@ export default function Index() {
                                 <Button
                                     key={name}
                                     variant="outline"
-                                    className={`w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5 ${selectedStrategy === name ? 'border border-blue-700' : ''}`}
+                                    className={`w-full justify-between py-8 px-4 [&_svg]:size-5 ${selectedStrategy === name ? 'border border-blue-700' : ''}`}
                                     onClick={() => handleButtonClick(name)}
                                 >
-                                    {icon} {label} {additionalIcon} {desc}
+                                    <div className="items-center flex flex-row gap-4">
+                                        {icon} 
+                                        <div className="flex flex-col text-start">
+                                            <div>{label}</div>
+                                            <div className="text-xs text-zinc-600">{desc}</div> 
+                                        </div> 
+                                    </div>
+                                   
+                                    {additionalIcon}
                                 </Button>
                             ))}
                         </div>
