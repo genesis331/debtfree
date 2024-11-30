@@ -58,7 +58,7 @@ export default function Index() {
                             href={elem.url}
                             target="_blank"
                         >
-                            <Card className="shadow-none">
+                            <Card className="shadow-none cursor-pointer hover:bg-zinc-50">
                                 <CardContent className="px-5 py-4">
                                     <div>{elem.name}</div>
                                     <div className="text-xs text-zinc-500">{elem.secondary}</div>
@@ -77,7 +77,7 @@ export default function Index() {
                             href={elem.url}
                             target="_blank"
                         >
-                            <Card className="shadow-none">
+                            <Card className="shadow-none cursor-pointer hover:bg-zinc-50">
                                 <CardContent className="px-5 py-4">
                                     <div>{elem.name}</div>
                                     <div className="text-xs text-zinc-500">{elem.secondary}</div>

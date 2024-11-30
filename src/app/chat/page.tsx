@@ -174,7 +174,7 @@ export default function Index() {
                   <div className="flex flex-col gap-2">
                       <div className="text-center text-3xl font-bold">Chat with Bei</div>
                       <div className="flex flex-col gap-4">
-                      <Card className="shadow-none" onClick={() => {
+                      <Card className="shadow-none cursor-pointer hover:bg-zinc-50" onClick={() => {
                           setCurrentMessage("");
                           sendToModel("Analyze my spending habits and suggest budget adjustments to free up additional savings.");
                       }}>
@@ -188,7 +188,7 @@ export default function Index() {
                                   </div>
                               </CardContent>
                           </Card>
-                          <Card className="shadow-none" onClick={() => {
+                          <Card className="shadow-none cursor-pointer hover:bg-zinc-50" onClick={() => {
                               setCurrentMessage("");
                               sendToModel("Give me some advice on setting up emergency funds, investments, or other savings plans like education.");
                           }}>
@@ -202,7 +202,7 @@ export default function Index() {
                                   </div>
                               </CardContent>
                           </Card>
-                          <Card className="shadow-none" onClick={() => {
+                          <Card className="shadow-none cursor-pointer hover:bg-zinc-50" onClick={() => {
                               setCurrentMessage("");
                               sendToModel("What are the best practices for managing personal finances?");
                           }}>
