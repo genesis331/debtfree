@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import { useSearchParams } from "next/navigation";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, updateDoc } from "firebase/firestore";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import {
@@ -94,12 +94,35 @@ interface FinanceDoc {
 export default function Index() {
 
     const db = getFirestore(app);
+    const userId = 'BtkO3rgqkPOVre2K4l4T';
     const [debtSummary, setDebtSummary] = useState<DebtDoc[]>([]);
     const [incExpSummary, setIncExpSymmary] = useState<{ month: string, inc: number, exp: number }[]>([]);
     const [sortBy, setSortBy] = useState<string>("rate");
     const [sortOrder, setSortOrder] = useState<string>("asc");
     const searchParams = useSearchParams()
     const step = searchParams.get('step')
+    const [selectedStrategy, setSelectedStrategy] = useState<string | null>(null);
+    const [autoRepayment, setAutoRepayment] = useState(false);
+    const [debtAfterSort, setDebtAfterSort] = useState<DebtDoc[]>();
+    const [repaymentResult, setRepaymentResult] = useState<{ name: string; month: string; }[]>();
+
+    const fetchUserData = async () => {
+
+        const userSnapshot = await getDoc(doc(db, 'user', userId));
+        setSelectedStrategy(userSnapshot.data()?.repayment_strategy);
+        setAutoRepayment(userSnapshot.data()?.toggles.auto_repayment);
+    };
+
+    useEffect(() => {
+        fetchUserData();
+    }, []);
+
+    const handleAutoRepayment = async () => {
+        setAutoRepayment(!autoRepayment)
+        await updateDoc(doc(db, 'user', userId), {
+            'toggles.auto_repayment': !autoRepayment
+        });
+    }
 
     const fetchDebtData = async () => {
         const debtCollection = collection(db, "debt");
@@ -269,10 +292,6 @@ export default function Index() {
         // Apply sorting order
         return sortOrder === "asc" ? comparison : -comparison;
     });
-
-    const [selectedStrategy, setSelectedStrategy] = useState<string | null>(null);
-    const [debtAfterSort, setDebtAfterSort] = useState<DebtDoc[]>();
-    const [repaymentResult, setRepaymentResult] = useState<{ name: string; month: string; }[]>();
 
     const handleButtonClick = (strategy: string) => {
         setSelectedStrategy(strategy);
@@ -495,7 +514,7 @@ export default function Index() {
                                     </div>
                                 </div>
                                 <div>
-                                    <Switch className="data-[state=checked]:bg-blue-700" />
+                                    <Switch className="data-[state=checked]:bg-blue-700" checked={autoRepayment} onCheckedChange={handleAutoRepayment}/>
                                 </div>
                             </div>
                             <Link href="/repayment?step=3">
