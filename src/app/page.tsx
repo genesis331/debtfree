@@ -222,10 +222,6 @@ export default function Index() {
         },
     ];
 
-    // Example console log to check the result
-    console.log(chartData);
-
-
     const chartConfig = {
         homeloan: {
             label: "Home Loan",

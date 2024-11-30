@@ -9,17 +9,17 @@ import { useSearchParams } from "next/navigation";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { 
-    DropdownMenu, 
-    DropdownMenuContent, 
-    DropdownMenuRadioGroup, 
-    DropdownMenuRadioItem, 
-    DropdownMenuSeparator, 
-    DropdownMenuTrigger 
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
 import {
-    ArrowUpDown, 
+    ArrowUpDown,
     ChartNoAxesCombinedIcon,
     CrownIcon,
     MailWarningIcon,
@@ -43,32 +43,13 @@ const strategies = [
         desc: 'Pay smallest remaining first',
         icon: <ChartNoAxesCombinedIcon className="text-blue-700" />
     },
-    {
-        name: 'penalties',
-        label: 'Avoid Penalties',
-        desc: '',
-        icon: <MailWarningIcon className="text-blue-700" />
-    },
+    // {
+    //     name: 'penalties',
+    //     label: 'Avoid Penalties',
+    //     desc: '',
+    //     icon: <MailWarningIcon className="text-blue-700" />
+    // },
 ];
-
-const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
-]
-const chartConfig = {
-    desktop: {
-        label: "Desktop",
-        color: "hsl(var(--chart-1))",
-    },
-    mobile: {
-        label: "Mobile",
-        color: "hsl(var(--chart-8))",
-    },
-} satisfies ChartConfig
 
 interface DebtDoc {
     installment: number;
@@ -161,11 +142,98 @@ export default function Index() {
     const incArray = incExpSummary.map(item => item.inc);
     const expArray = incExpSummary.map(item => item.exp);
 
-    // const sarima = new ARIMA({ p: 2, d: 1, q: 2, P: 1, D: 0, Q: 1, s: 6, verbose: false }).train(incArray)
+    console.log(incArray)
+    console.log(expArray)
 
-    // const [pred, errors] = sarima.predict(6)
+    // const [incForecast, setIncForecast] = useState<number[]>([]);
+    // const [expForecast, setExpForecast] = useState<number[]>([]);
 
-    // console.log('pred', pred);
+    // const handlePredict = async () => {
+
+    //     if (incArray.length > 0) {
+    //         try {
+    //             const response = await fetch('/api', {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({ data: incArray }), // Send the data as part of the request body
+    //             });
+
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to fetch prediction');
+    //             }
+
+    //             const result = await response.json();
+    //             setIncForecast(result.pred);
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     }
+
+    //     if (expArray.length > 0) {
+    //         try {
+    //             const response = await fetch('/api', {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({ data: expArray }), // Send the data as part of the request body
+    //             });
+
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to fetch prediction');
+    //             }
+
+    //             const result = await response.json();
+    //             setExpForecast(result.pred);
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     }
+    // };
+
+    // useEffect(() => { handlePredict() }, []);
+    // handlePredict();
+
+    const incForecast = [
+        6503.029736677208,
+        6069.366805393684,
+        6504.571285746108,
+        5935.611167741876,
+        5647.977136377687,
+        6294.870611313727
+    ]
+
+    const expForecast = [
+        3023.7946650094564,
+        2752.6573570612463,
+        2838.2774588792545,
+        3083.4774307324224,
+        3009.804682737749,
+        2927.5605058510428
+    ]
+
+    const chartData = [
+        { month: "January", income: 1860, expense: 900 },
+        { month: "February", income: 3050, expense: 1200 },
+        { month: "March", income: 2070, expense: 920 },
+        { month: "April", income: 1530, expense: 2890 },
+        { month: "May", income: 1990, expense: 1330 },
+        { month: "June", income: 2140, expense: 1540 },
+    ]
+    const chartConfig = {
+        income: {
+            label: "Income",
+            color: "hsl(var(--chart-1))",
+        },
+        expense: {
+            label: "Expense",
+            color: "hsl(var(--chart-8))",
+        },
+    } satisfies ChartConfig
+
+    // console.log('result', incForecast, expForecast)
 
     const sortedDebtSummary = [...debtSummary].sort((a, b) => {
         let comparison = 0;
@@ -216,8 +284,8 @@ export default function Index() {
 
     // Helper function to handle loan repayment and update remaining amount
     const makeLoanPayment = (loan: DebtDoc) => {
-        loan.remaining -= (loan.installment > loan.remaining) 
-            ? loan.remaining 
+        loan.remaining -= (loan.installment > loan.remaining)
+            ? loan.remaining
             : (loan.installment - (loan.remaining * (loan.interest_pct / 1200)));
 
         if (loan.remaining === 0) {
@@ -240,7 +308,7 @@ export default function Index() {
     };
 
     const rlySimulate = () => {
-        
+
         const avg_cash_balance_per_month = 5000;
         let result = [];
 
@@ -297,16 +365,16 @@ export default function Index() {
                                                 />
                                                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                                                 <Line
-                                                    dataKey="desktop"
+                                                    dataKey="income"
                                                     type="monotone"
-                                                    stroke="var(--color-desktop)"
+                                                    stroke="var(--color-income)"
                                                     strokeWidth={2}
                                                     dot={false}
                                                 />
                                                 <Line
-                                                    dataKey="mobile"
+                                                    dataKey="expense"
                                                     type="monotone"
-                                                    stroke="var(--color-mobile)"
+                                                    stroke="var(--color-expense)"
                                                     strokeWidth={2}
                                                     dot={false}
                                                 />
@@ -316,11 +384,11 @@ export default function Index() {
                                     <div className="flex flex-wrap items-center text-xs gap-x-5 gap-y-2">
                                         <div className="flex items-center gap-2">
                                             <div className="h-2 w-2 rounded-full bg-chart-8"></div>
-                                            <div className="text-zinc-500">Income</div>
+                                            <div className="text-zinc-500">Expenses</div>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className="h-2 w-2 rounded-full bg-chart-1"></div>
-                                            <div className="text-zinc-500">Expenses</div>
+                                            <div className="text-zinc-500">Income</div>
                                         </div>
                                     </div>
                                 </div>
@@ -334,7 +402,7 @@ export default function Index() {
                                     Repayment Strategies</Button>
                             </Link>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="mt-6 flex justify-between items-center">
                             <div className="font-semibold">All Debts</div>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
@@ -387,13 +455,13 @@ export default function Index() {
                                     onClick={() => handleButtonClick(name)}
                                 >
                                     <div className="items-center flex flex-row gap-4">
-                                        {icon} 
+                                        {icon}
                                         <div className="flex flex-col text-start">
                                             <div>{label}</div>
-                                            <div className="text-xs text-zinc-600">{desc}</div> 
-                                        </div> 
+                                            <div className="text-xs text-zinc-600">{desc}</div>
+                                        </div>
                                     </div>
-                                   
+
                                     {additionalIcon}
                                 </Button>
                             ))}
@@ -447,7 +515,7 @@ export default function Index() {
                             ))}
                         </div>
                     </div>
-                    <div className="flex flex-col gap-3.5">
+                    {/* <div className="flex flex-col gap-3.5">
                         <div className="font-semibold">Expected Debt Clearance</div>
                         <div className="mx-4">
                             <ul className="list-disc list-outside text-zinc-500">
@@ -457,7 +525,7 @@ export default function Index() {
                                 <li>Maju Apartment debt completes on December 2025</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
                     <div>
                         <Link href="/repayment">
                             <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80"

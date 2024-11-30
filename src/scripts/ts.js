@@ -62,7 +62,7 @@ const ARIMA = require('arima');
 
 // Example time series data
 // const data = [123, 546, 293, 781, 902, 57, 467, 876, 234, 657, 342, 897, 563, 456, 123, 478, 901, 345, 876, 234];
-const data = [6099.74, 5815.29, 6080.42, 5966.48, 7009.76, 5575.27]
+const data = [3661.0299999999997, 5204.679999999999, 5004.21, 490.03000000000003, 1649.0500000000002, 3290.48]
 const sarima = new ARIMA({ p: 2, d: 1, q: 2, P: 1, D: 0, Q: 1, s: 6, verbose: false }).train(data)
 
 const [pred, errors] = sarima.predict(6)
