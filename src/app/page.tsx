@@ -223,14 +223,18 @@ export default function Index() {
                                     <div>
                                         <Link href="/settings">
                                             <Button className="px-2" variant="ghost">
-                                                <PencilIcon />
+                                                <PencilIcon/>
                                             </Button>
                                         </Link>
                                     </div>
                                 </div>
                                 <div className="flex overflow-hidden rounded-full h-3">
-                                    {/* <div className="bg-blue-700" style={{ width: `${sourceSummary[0].amt / totalAsset * 100}%` }}></div>
-                                    <div className="bg-blue-300" style={{ width: `${sourceSummary[1].amt / totalAsset * 100}%` }}></div> */}
+                                    {sourceSummary.length > 0 ? <>
+                                        <div className="bg-blue-700"
+                                             style={{width: `${sourceSummary[0].amt / totalAsset * 100}%`}}></div>
+                                        <div className="bg-blue-300"
+                                             style={{width: `${sourceSummary[1].amt / totalAsset * 100}%`}}></div>
+                                    </> : null}
                                 </div>
                                 <div className="flex flex-wrap items-center text-xs pt-2 gap-x-5 gap-y-2">
                                     <div className="flex items-center gap-2">
@@ -258,7 +262,9 @@ export default function Index() {
                                     {debtProgress.map((debt, index) => (
                                         <div key={index} className="flex items-center gap-5">
                                             <div className="w-1/2">{debt.name}</div>
-                                            <div className="flex-1"><Progress value={debt.progress} className="bg-blue-700/20 *:bg-blue-700" /></div>
+                                            <div className="flex-1"><Progress value={debt.progress}
+                                                                              className="bg-blue-700/20 *:bg-blue-700"/>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>

@@ -2,6 +2,16 @@ import {Card, CardContent} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {PencilIcon} from "lucide-react";
 import {Switch} from "@/components/ui/switch";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription, DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog";
+import {Label} from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
 
 export default function Index() {
   return (
@@ -18,7 +28,26 @@ export default function Index() {
                                   <div className="text-xs text-zinc-500">Full Name</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon /></Button>
+                                  <Dialog>
+                                      <DialogTrigger asChild>
+                                          <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon /></Button>
+                                      </DialogTrigger>
+                                      <DialogContent className="rounded-lg w-11/12">
+                                          <DialogHeader>
+                                              <DialogTitle>Edit name</DialogTitle>
+                                              <DialogDescription>
+                                                  Make changes to your name here. Click save when you're done.
+                                              </DialogDescription>
+                                          </DialogHeader>
+                                          <div className="flex flex-col w-full gap-1.5">
+                                              <Label htmlFor="name">Full Name</Label>
+                                              <Input type="text" id="name" className="h-10"/>
+                                          </div>
+                                          <DialogFooter>
+                                              <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">Save</Button>
+                                          </DialogFooter>
+                                      </DialogContent>
+                                  </Dialog>
                               </div>
                           </div>
                       </CardContent>
@@ -31,7 +60,26 @@ export default function Index() {
                                   <div className="text-xs text-zinc-500">Email Address</div>
                               </div>
                               <div>
-                                  <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon /></Button>
+                                  <Dialog>
+                                      <DialogTrigger asChild>
+                                          <Button className="[&_svg]:size-6 px-2 text-zinc-500" variant="ghost"><PencilIcon /></Button>
+                                      </DialogTrigger>
+                                      <DialogContent className="rounded-lg w-11/12">
+                                          <DialogHeader>
+                                              <DialogTitle>Edit email address</DialogTitle>
+                                              <DialogDescription>
+                                                  Make changes to your email address here. Click save when you're done.
+                                              </DialogDescription>
+                                          </DialogHeader>
+                                          <div className="flex flex-col w-full gap-1.5">
+                                              <Label htmlFor="email">Email Address</Label>
+                                              <Input type="email" id="email" className="h-10"/>
+                                          </div>
+                                          <DialogFooter>
+                                              <Button className="font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">Save</Button>
+                                          </DialogFooter>
+                                      </DialogContent>
+                                  </Dialog>
                               </div>
                           </div>
                       </CardContent>
