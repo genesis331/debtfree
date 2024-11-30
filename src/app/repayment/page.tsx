@@ -66,7 +66,7 @@ const chartConfig = {
     },
     mobile: {
         label: "Mobile",
-        color: "hsl(var(--chart-2))",
+        color: "hsl(var(--chart-8))",
     },
 } satisfies ChartConfig
 
@@ -312,7 +312,7 @@ export default function Index() {
                                     </div>
                                     <div className="flex flex-wrap items-center text-xs gap-x-5 gap-y-2">
                                         <div className="flex items-center gap-2">
-                                            <div className="h-2 w-2 rounded-full bg-chart-2"></div>
+                                            <div className="h-2 w-2 rounded-full bg-chart-8"></div>
                                             <div className="text-zinc-500">Income</div>
                                         </div>
                                         <div className="flex items-center gap-2">
