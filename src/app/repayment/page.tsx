@@ -26,22 +26,27 @@ import {
     PercentIcon
 } from "lucide-react";
 
+// import ARIMA from 'arima';
+
 // Define the strategy data
 const strategies = [
     {
-        name: 'avalancbe',
-        label: 'Minimize Interest',
+        name: 'avalanche',
+        label: 'Debt Avalanche',
+        desc: 'Pay largest interest debt first',
         icon: <PercentIcon className="text-blue-700" />,
         additionalIcon: <CrownIcon />
     },
     {
-        name: 'avoid-penalties',
+        name: 'penalties',
         label: 'Avoid Penalties',
+        desc: '',
         icon: <MailWarningIcon className="text-blue-700" />
     },
     {
         name: 'snowball',
         label: 'Snowball Method',
+        desc: 'Pay lowest remaining first',
         icon: <ChartNoAxesCombinedIcon className="text-blue-700" />
     }
 ];
@@ -75,10 +80,22 @@ interface DebtDoc {
     type: string;
 }
 
+interface FinanceDoc {
+    month: { seconds: number };
+    sources: Array<{
+        data: {
+            expense: number;
+            income: number;
+        };
+        source: string;
+    }>;
+}
+
 export default function Index() {
 
     const db = getFirestore(app);
     const [debtSummary, setDebtSummary] = useState<DebtDoc[]>([]);
+    const [incExpSummary, setIncExpSymmary] = useState<{ month: string, inc: number, exp: number }[]>([]);
     const [sortBy, setSortBy] = useState<string>("rate");
     const [sortOrder, setSortOrder] = useState<string>("asc");
 
@@ -92,11 +109,56 @@ export default function Index() {
         setDebtSummary(debtData);
     };
 
+    const fetchFinanceData = async () => {
+
+        const financeCollection = collection(db, "finance");
+        const financeSnapshot = await getDocs(financeCollection);
+        const financeData: FinanceDoc[] = financeSnapshot.docs.map((doc) =>
+            doc.data() as FinanceDoc
+        );
+
+        const monthSummaryArray: { month: string; inc: number; exp: number }[] = [];
+
+        financeData.forEach((doc) => {
+
+            // Convert Firestore Timestamp to a JavaScript Date
+            const oldDate = new Date(doc.month.seconds * 1000);
+            const date = new Date(oldDate.getTime() + 8 * 60 * 60 * 1000);
+
+            // Preserve the original date as a string for ordering (e.g., 2024-08)
+            const originalMonthOrder = date.toISOString().slice(0, 7); // YYYY-MM
+
+            const totalInc = doc.sources.reduce((sum, source) => {
+                return sum + source.data.income;
+            }, 0);
+
+            const totalExp = doc.sources.reduce((sum, source) => {
+                return sum + source.data.expense;
+            }, 0);
+
+            // Push data with original order preserved
+            monthSummaryArray.push({ month: originalMonthOrder, inc: totalInc, exp: totalExp });
+        });
+
+        const sortedArr = [...monthSummaryArray].sort((a, b) => a.month.localeCompare(b.month))
+        setIncExpSymmary(sortedArr);
+    };
+
     useEffect(() => {
         fetchDebtData();
+        fetchFinanceData()
     }, []);
 
-    const sortedDebtSummary = debtSummary.sort((a, b) => {
+    const incArray = incExpSummary.map(item => item.inc);
+    const expArray = incExpSummary.map(item => item.exp);
+
+    // const sarima = new ARIMA({ p: 2, d: 1, q: 2, P: 1, D: 0, Q: 1, s: 6, verbose: false }).train(incArray)
+
+    // const [pred, errors] = sarima.predict(6)
+
+    // console.log('pred', pred);
+
+    const sortedDebtSummary = [...debtSummary].sort((a, b) => {
         let comparison = 0;
 
         // Compare based on the selected criteria
@@ -112,15 +174,95 @@ export default function Index() {
         return sortOrder === "asc" ? comparison : -comparison;
     });
 
+    console.log('chkpt', debtSummary)
+
     const searchParams = useSearchParams()
 
     const step = searchParams.get('step')
 
     const [selectedStrategy, setSelectedStrategy] = useState<string | null>(null);
+    const [debtAfterSort, setDebtAfterSort] = useState<DebtDoc[]>();
+    const [repaymentResult, setRepaymentResult] = useState<{ name: string; month: string; }[]>();
 
     const handleButtonClick = (strategy: string) => {
         setSelectedStrategy(strategy);
+        simulateDeptRepayment(strategy);
     };
+
+    const now = new Date();
+    let currentMonth = now.getMonth();
+    let currentYear = now.getFullYear();
+
+    // // // Helper function to sort loans based on strategy
+    // // const sortLoans = () => {
+    // //     // const strategies = {
+    // //     //     'avalanche': (a: DebtDoc, b: DebtDoc) => b.interest_pct - a.interest_pct,
+    // //     //     'snowball': (a: DebtDoc, b: DebtDoc) => a.remaining - b.remaining,
+    // //     //     // penalty: (a, b) => a.penalty_pct - b.penalty_pct
+    // //     // };
+    // //     debtSummary.sort((a, b) => {
+    // //         if (selectedStrategy === 'avalanche') {
+    // //             return a.interest_pct - b.interest_pct;
+    // //         } else {
+    // //             return a.remaining - b.remaining;
+    // //         }
+    // //     });
+    // //     setDebtSummary(debtSummary);
+    // //     console.log(debtSummary);
+    // // };
+
+    // Helper function to handle loan repayment and update remaining amount
+    const makeLoanPayment = (loan: DebtDoc) => {
+        loan.remaining -= (loan.installment > loan.remaining) 
+            ? loan.remaining 
+            : (loan.installment - (loan.remaining * (loan.interest_pct / 1200)));
+
+        if (loan.remaining === 0) {
+            return { name: loan.name, month: `${currentMonth + 1}/${currentYear}` };
+        }
+        return null;
+    };
+
+    // Simulate debt repayment
+    const simulateDeptRepayment = (strategy: string) => {
+        const debtAfterStrategySort = [...debtSummary].sort((a, b) => {
+            if (strategy === 'avalanche') {
+                return b.interest_pct - a.interest_pct;
+            } else {
+                return a.remaining - b.remaining;
+            }
+        });
+        console.log('debtsummary', debtAfterStrategySort);
+        setDebtAfterSort(debtAfterStrategySort);
+    };
+
+    const rlySimulate = () => {
+        
+        const avg_cash_balance_per_month = 5000;
+        let result = [];
+
+        if (debtAfterSort) {
+            let temp = [];
+            for (let item of debtAfterSort) temp.push(item);
+            while (temp.some(loan => loan.remaining > 0)) {
+                let total_cash_balance = avg_cash_balance_per_month;
+                for (let loan of temp) {
+                    if (loan.remaining > 0 && total_cash_balance > 0) {
+                        let payment = Math.min(loan.installment, loan.remaining);
+                        total_cash_balance -= payment;
+                        let paidResult = makeLoanPayment(loan);
+                        if (paidResult) result.push(paidResult);
+                    }
+                }
+                currentMonth = (currentMonth + 1) % 12;
+                if (currentMonth === 0) {
+                    currentYear += 1;
+                }
+            }
+            console.log('result', result)
+            setRepaymentResult(result);
+        }
+    }
 
     return (
         <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
@@ -234,14 +376,14 @@ export default function Index() {
                     <div className="flex flex-col gap-3.5">
                         <div className="font-semibold">Choose 1 strategy</div>
                         <div className="flex flex-col gap-4">
-                            {strategies.map(({ name, label, icon, additionalIcon }) => (
+                            {strategies.map(({ name, label, desc, icon, additionalIcon }) => (
                                 <Button
                                     key={name}
                                     variant="outline"
                                     className={`w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5 ${selectedStrategy === name ? 'border border-blue-700' : ''}`}
                                     onClick={() => handleButtonClick(name)}
                                 >
-                                    {icon} {label} {additionalIcon}
+                                    {icon} {label} {additionalIcon} {desc}
                                 </Button>
                             ))}
                         </div>
@@ -259,7 +401,7 @@ export default function Index() {
                                 </div>
                             </div>
                             <Link href="/repayment?step=3">
-                                <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg">
+                                <Button className="w-full font-semibold bg-blue-700 hover:bg-blue-700/80" size="lg" onClick={rlySimulate}>
                                     Continue
                                 </Button>
                             </Link>
@@ -271,86 +413,27 @@ export default function Index() {
                 step === "3" ? <div className="flex flex-col gap-6">
                     <div className="text-3xl font-bold">Debt Timeline</div>
                     <div className="flex flex-col gap-2">
-                        <div className="font-semibold text-zinc-500">Nov 2024</div>
+                        <div className="flex justify-between">
+                            <div className="font-semibold text-zinc-500">Nov 2024</div>
+                            <div className="font-semibold text-zinc-500">RM</div>
+                        </div>
                         <div className="flex flex-col gap-2">
-                            <div className="flex gap-4">
-                                <div className="font-medium text-lg">1</div>
-                                <div className="flex-1">
-                                    <div className="flex justify-between font-medium text-lg">
-                                        <div>Proton Saga</div>
-                                        <div>1,300.00</div>
-                                    </div>
-                                    <div className="flex justify-between text-xs text-zinc-500">
-                                        <div>3.40% p.a.</div>
-                                        <div>3.68</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex gap-2.5">
-                                <div className="font-medium text-lg">2</div>
-                                <div className="flex-1">
-                                    <div className="flex justify-between font-medium">
-                                        <div>Kitchen Renovation</div>
-                                        <div>900.00</div>
-                                    </div>
-                                    <div className="flex justify-between text-xs text-zinc-500">
-                                        <div>4.40% p.a.</div>
-                                        <div>3.30</div>
+                            {debtAfterSort?.map((elem, index) => (
+                                <div key={index} className="flex gap-4">
+                                    <div className="font-medium text-lg">{index + 1}</div>
+                                    <div className="flex-1">
+                                        <div className="flex justify-between font-medium text-lg">
+                                            <div>{elem.name}</div>
+                                            <div>{elem.installment}</div>
+                                        </div>
+                                        <div className="flex justify-between text-xs text-zinc-500">
+                                            <div>{elem.interest_pct}% p.a.</div>
+                                            {/* <div>{elem.remaining}</div> */}
+                                            <div>Clear on: {repaymentResult ? repaymentResult[index] ? repaymentResult[index].month : null : null}</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="flex gap-2.5">
-                                <div className="font-medium text-lg">3</div>
-                                <div className="flex-1">
-                                    <div className="flex justify-between font-medium">
-                                        <div>Maju Apartment</div>
-                                        <div>1,100.00</div>
-                                    </div>
-                                    <div className="flex justify-between text-xs text-zinc-500">
-                                        <div>2.88% p.a.</div>
-                                        <div>2.64</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex gap-2.5">
-                                <div className="font-medium text-lg">4</div>
-                                <div className="flex-1">
-                                    <div className="flex justify-between font-medium">
-                                        <div>PTPTN Anak 1</div>
-                                        <div>679.00</div>
-                                    </div>
-                                    <div className="flex justify-between text-xs text-zinc-500">
-                                        <div>1.00% p.a.</div>
-                                        <div>0.57</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex gap-2.5">
-                                <div className="font-medium text-lg">5</div>
-                                <div className="flex-1">
-                                    <div className="flex justify-between font-medium">
-                                        <div>PTPTN Anak 2</div>
-                                        <div>549.00</div>
-                                    </div>
-                                    <div className="flex justify-between text-xs text-zinc-500">
-                                        <div>1.00% p.a.</div>
-                                        <div>0.46</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex gap-2.5">
-                                <div className="font-medium text-lg">6</div>
-                                <div className="flex-1">
-                                    <div className="flex justify-between font-medium">
-                                        <div>LG Puricare</div>
-                                        <div>160.00</div>
-                                    </div>
-                                    <div className="flex justify-between text-xs text-zinc-500">
-                                        <div>0.00% p.a.</div>
-                                        <div>0.00</div>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                     <div className="flex flex-col gap-3.5">
