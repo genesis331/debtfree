@@ -51,6 +51,25 @@ const strategies = [
     // },
 ];
 
+const chartData = [
+    { month: "January", expenses: 186, income: 80 },
+    { month: "February", expenses: 305, income: 200 },
+    { month: "March", expenses: 237, income: 120 },
+    { month: "April", expenses: 73, income: 190 },
+    { month: "May", expenses: 209, income: 130 },
+    { month: "June", expenses: 214, income: 140 },
+]
+const chartConfig = {
+    expenses: {
+        label: "Expenses",
+        color: "hsl(var(--chart-1))",
+    },
+    income: {
+        label: "Income",
+        color: "hsl(var(--chart-8))",
+    },
+} satisfies ChartConfig
+
 interface DebtDoc {
     installment: number;
     interest_pct: number;
@@ -365,16 +384,16 @@ export default function Index() {
                                                 />
                                                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                                                 <Line
-                                                    dataKey="income"
+                                                    dataKey="expenses"
                                                     type="monotone"
-                                                    stroke="var(--color-income)"
+                                                    stroke="var(--color-expenses)"
                                                     strokeWidth={2}
                                                     dot={false}
                                                 />
                                                 <Line
-                                                    dataKey="expense"
+                                                    dataKey="income"
                                                     type="monotone"
-                                                    stroke="var(--color-expense)"
+                                                    stroke="var(--color-income)"
                                                     strokeWidth={2}
                                                     dot={false}
                                                 />
