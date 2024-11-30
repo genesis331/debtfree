@@ -295,13 +295,11 @@ export default function Index() {
                         </ChartContainer>
                     </CardContent>
                     <CardFooter className="justify-center">
-                        <Link href="/settings" className="flex items-center text-red-600">
-                            <div className="flex-1">RM800 kept from debt repayment</div>
-                            <div>
-                                <Button className="px-2" variant="ghost">
-                                    <PencilIcon />
-                                </Button>
-                            </div>
+                        <Link href="/settings">
+                            <Button className="px-2 flex items-center text-red-600" variant="ghost">
+                                <div className="flex-1">RM800 kept from debt repayment</div>
+                                <PencilIcon/>
+                            </Button>
                         </Link>
                     </CardFooter>
                 </Card>
