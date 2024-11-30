@@ -225,7 +225,7 @@ export default function Index() {
         <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
             {/* <div className="text-3xl font-bold">Welcome, <span className="text-blue-700">Ahmad Iskandar</span></div> */}
             <div className="flex flex-col gap-5">
-                <Card className="flex flex-col">
+                <Card className="flex flex-col shadow-none">
                     <CardHeader className="items-center pb-0">
                         <CardTitle>Debt and Remaining Amount</CardTitle>
                         <CardDescription>January - June 2024</CardDescription>
@@ -305,30 +305,32 @@ export default function Index() {
                         </Link>
                     </CardFooter>
                 </Card>
-                <Card className="shadow-none">
-                    <CardContent className="px-4 py-4">
-                        <div className="flex justify-between">
-                            <Link href="/repayment">
-                                <Button className="[&_svg]:size-9 h-16 w-24 flex-col font-semibold gap-1" variant="ghost">
-                                    <DollarSignIcon />
-                                    Repayment
-                                </Button>
-                            </Link>
-                            <Link href="/refinancing">
-                                <Button className="[&_svg]:size-9 h-16 w-24 flex-col font-semibold gap-1" variant="ghost">
-                                    <BanknoteIcon />
-                                    Refinancing
-                                </Button>
-                            </Link>
-                            <Link href="/investment">
-                                <Button className="[&_svg]:size-9 h-16 w-24 flex-col font-semibold gap-1" variant="ghost">
-                                    <CandlestickChartIcon />
-                                    Investment
-                                </Button>
-                            </Link>
-                        </div>
-                    </CardContent>
-                </Card>
+                <div className="flex gap-1">
+                    <div className="flex-1">
+                        <Link href="/repayment">
+                            <Button className="[&_svg]:size-9 h-24 px-0 py-0 w-full flex-col font-semibold gap-1" variant="outline">
+                                <DollarSignIcon/>
+                                Repayment
+                            </Button>
+                        </Link>
+                    </div>
+                    <div className="flex-1">
+                        <Link href="/refinancing">
+                            <Button className="[&_svg]:size-9 h-24 px-0 py-0 w-full flex-col font-semibold gap-1" variant="outline">
+                                <BanknoteIcon/>
+                                Refinancing
+                            </Button>
+                        </Link>
+                    </div>
+                    <div className="flex-1">
+                        <Link href="/investment">
+                            <Button className="[&_svg]:size-9 h-24 px-0 py-0 w-full flex-col font-semibold gap-1" variant="outline">
+                                <CandlestickChartIcon/>
+                                Investment
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
                 {/* <Card className="shadow-none">
                     <CardContent className="px-5 py-4">
                         <div className="flex flex-col gap-3">
