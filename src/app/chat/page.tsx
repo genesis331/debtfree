@@ -74,8 +74,8 @@ export default function Index() {
     };
 
     useEffect(() => {
-        fetchFinanceData();
-        fetchDebtData();
+        fetchFinanceData().then(() => {});
+        fetchDebtData().then(() => {});
     }, []);
 
     async function sendToModel(message: string) {
@@ -114,9 +114,7 @@ export default function Index() {
                         return `Source: ${source.source}\nIncome: ${source.data.income}\nExpense: ${source.data.expense}\n`;
                     }).join("\n")}`;
                 }).join("\n");
-                await chatSession2.sendMessage(financeDataString).then((res) => {
-
-                });
+                await chatSession2.sendMessage(financeDataString).then(() => {});
             }
             if (response.loan !== debtDataNeeded) {
                 if (!debtDataNeeded && response.loan) {
@@ -126,9 +124,7 @@ export default function Index() {
                 const debtDataString = debtData.map((data) => {
                     return `Name: ${data.name}\nType: ${data.type}\nTerm: ${data.term_month}\nInterest: ${data.interest_pct}\nPayment: ${data.installment}\nPrincipal: ${data.principal}\nRemaining: ${data.remaining}\n`;
                 }).join("\n");
-                await chatSession2.sendMessage(debtDataString).then((res) => {
-
-                });
+                await chatSession2.sendMessage(debtDataString).then(() => {});
             }
         });
         await chatSession2.sendMessage(message).then((res) => {
@@ -176,7 +172,7 @@ export default function Index() {
                       <div className="flex flex-col gap-4">
                       <Card className="shadow-none cursor-pointer hover:bg-zinc-50" onClick={() => {
                           setCurrentMessage("");
-                          sendToModel("Analyze my spending habits and suggest budget adjustments to free up additional savings.");
+                          sendToModel("Analyze my spending habits and suggest budget adjustments to free up additional savings.").then(() => {});
                       }}>
                               <CardContent className="px-5 py-4">
                                   <div className="flex flex-col gap-1">
@@ -190,7 +186,7 @@ export default function Index() {
                           </Card>
                           <Card className="shadow-none cursor-pointer hover:bg-zinc-50" onClick={() => {
                               setCurrentMessage("");
-                              sendToModel("Give me some advice on setting up emergency funds, investments, or other savings plans like education.");
+                              sendToModel("Give me some advice on setting up emergency funds, investments, or other savings plans like education.").then(() => {});
                           }}>
                               <CardContent className="px-5 py-4">
                                   <div className="flex flex-col gap-1">
@@ -204,7 +200,7 @@ export default function Index() {
                           </Card>
                           <Card className="shadow-none cursor-pointer hover:bg-zinc-50" onClick={() => {
                               setCurrentMessage("");
-                              sendToModel("What are the best practices for managing personal finances?");
+                              sendToModel("What are the best practices for managing personal finances?").then(() => {});
                           }}>
                               <CardContent className="px-5 py-4">
                                   <div className="flex flex-col gap-1">
@@ -227,7 +223,7 @@ export default function Index() {
                              setCurrentMessage(e.target.value)
                          }}/>
                   <Button type="submit" size="lg" className="bg-blue-700 hover:bg-blue-700/80 px-4" onClick={() => {
-                      sendToModel(currentMessage);
+                      sendToModel(currentMessage).then(() => {});
                       setCurrentMessage("");
                   }}>
                       <SendIcon/>
