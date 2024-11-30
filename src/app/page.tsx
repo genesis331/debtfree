@@ -354,8 +354,8 @@ export default function Index() {
                                         />
                                         <Pie
                                             data={pieChartData}
-                                            dataKey="visitors"
-                                            nameKey="browser"
+                                            dataKey={"amount"}
+                                            nameKey={"type"}
                                             innerRadius={60}
                                             strokeWidth={5}
                                         >
