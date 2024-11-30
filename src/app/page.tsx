@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, Label, Pie, PieChart, XAxis } from "recharts";
 import { Progress } from "@/components/ui/progress";
-import { PencilIcon } from "lucide-react";
+import {BanknoteIcon, CandlestickChartIcon, DollarSignIcon, PencilIcon} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import app from "@/components/firebase";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
@@ -212,6 +212,30 @@ export default function Index() {
         <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
             <div className="text-3xl font-bold">Welcome, <span className="text-blue-700">Ahmad Iskandar</span></div>
             <div className="flex flex-col gap-5">
+                <Card className="shadow-none">
+                    <CardContent className="px-4 py-4">
+                        <div className="flex justify-between">
+                            <Link href="/repayment">
+                                <Button className="[&_svg]:size-9 h-16 w-24 flex-col font-semibold gap-1" variant="ghost">
+                                    <DollarSignIcon/>
+                                    Repayment
+                                </Button>
+                            </Link>
+                            <Link href="/refinancing">
+                                <Button className="[&_svg]:size-9 h-16 w-24 flex-col font-semibold gap-1" variant="ghost">
+                                    <BanknoteIcon/>
+                                    Refinancing
+                                </Button>
+                            </Link>
+                            <Link href="/investment">
+                                <Button className="[&_svg]:size-9 h-16 w-24 flex-col font-semibold gap-1" variant="ghost">
+                                    <CandlestickChartIcon/>
+                                    Investment
+                                </Button>
+                            </Link>
+                        </div>
+                    </CardContent>
+                </Card>
                 <Card className="shadow-none">
                     <CardContent className="px-5 py-4">
                         <div className="flex flex-col gap-3">
