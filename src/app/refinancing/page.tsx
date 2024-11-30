@@ -46,7 +46,15 @@ export default function Index() {
         fetchData();
     }, []);
 
-    const visibleDocs = showAll ? refinanceDocs : refinanceDocs.slice(0, 3);
+    let by = "s"
+
+    const sortedRefinanceDocs = refinanceDocs.sort((a, b) => {
+        return (by === 'rate') 
+            ? +a.rate.replace("%", "") - +b.rate.replace("%", "") 
+            : +a.monthly.replace("RM", "").replace(/,/g, "") - +b.monthly.replace("RM", "").replace(/,/g, "");
+    })
+
+    const visibleDocs = showAll ? sortedRefinanceDocs : sortedRefinanceDocs.slice(0, 3);
 
     return (
         <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
@@ -100,7 +108,7 @@ export default function Index() {
                                         <div className="text-3xl font-medium pb-1">{elem.monthly}/mo</div>
                                         <div className="flex justify-between text-xs text-zinc-500">
                                             <div>Max {elem.maxTenure}</div>
-                                            <div>{elem.rate}</div>
+                                            <div>{elem.rate} p.a.</div>
                                         </div>
                                     </div>
                                 </CardContent>
@@ -108,12 +116,12 @@ export default function Index() {
                         </a>
                     ))}
                 </div>
-                {/* <div className="text-center font-medium text-zinc-500 text-sm">View more offers</div> */}
-                {!showAll && (
-                    <div className="text-center font-medium text-zinc-500 text-sm">
-                        <Button onClick={() => setShowAll(true)}>View more offers</Button>
-                    </div>
-                )}
+                <div className="text-center font-medium text-zinc-500 text-sm">
+                    {showAll 
+                        ? <Button variant="ghost" onClick={() => setShowAll(false)}>Collapse</Button> 
+                        : <Button variant="ghost" onClick={() => setShowAll(true)}>View more offers</Button>
+                    }
+                </div>
             </div>
         </div>
     );
