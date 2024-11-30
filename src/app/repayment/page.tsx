@@ -52,20 +52,20 @@ const strategies = [
 ];
 
 const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
+    { month: "January", expenses: 186, income: 80 },
+    { month: "February", expenses: 305, income: 200 },
+    { month: "March", expenses: 237, income: 120 },
+    { month: "April", expenses: 73, income: 190 },
+    { month: "May", expenses: 209, income: 130 },
+    { month: "June", expenses: 214, income: 140 },
 ]
 const chartConfig = {
-    desktop: {
-        label: "Desktop",
+    expenses: {
+        label: "Expenses",
         color: "hsl(var(--chart-1))",
     },
-    mobile: {
-        label: "Mobile",
+    income: {
+        label: "Income",
         color: "hsl(var(--chart-8))",
     },
 } satisfies ChartConfig
@@ -297,16 +297,16 @@ export default function Index() {
                                                 />
                                                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                                                 <Line
-                                                    dataKey="desktop"
+                                                    dataKey="expenses"
                                                     type="monotone"
-                                                    stroke="var(--color-desktop)"
+                                                    stroke="var(--color-expenses)"
                                                     strokeWidth={2}
                                                     dot={false}
                                                 />
                                                 <Line
-                                                    dataKey="mobile"
+                                                    dataKey="income"
                                                     type="monotone"
-                                                    stroke="var(--color-mobile)"
+                                                    stroke="var(--color-income)"
                                                     strokeWidth={2}
                                                     dot={false}
                                                 />
