@@ -264,7 +264,10 @@ export default function Index() {
                 <Card className="flex flex-col shadow-none">
                     <CardHeader className="items-center pb-0">
                         <CardTitle>Debt and Remaining Amount</CardTitle>
-                        <CardDescription>January - June 2024</CardDescription>
+                        <CardDescription className="flex items-center gap-2">
+                                <div className="h-2 w-2 rounded-full bg-chart-8"></div>
+                                <div className="text-zinc-500">Remaining RM{remainingAmount.toFixed(2)}</div>
+                        </CardDescription>
                     </CardHeader>
                     <CardContent className="flex-1 pb-0">
                         <ChartContainer
