@@ -77,7 +77,7 @@ export default function Index() {
             // Push data with original order preserved
             monthSummaryArray.push({ month: originalMonthOrder, value: netResult });
 
-            if (originalMonthOrder === new Date().toISOString().slice(0, 7)) {
+            if (originalMonthOrder === '2024-11' ) {// new Date().toISOString().slice(0, 7)) {
                 const sourceSummary = doc.sources.map((src) => ({
                     source: src.source,
                     amt: src.data.income - src.data.expense
@@ -177,7 +177,7 @@ export default function Index() {
     };
 
     // Calculate the remaining amount after paying debts
-    const remainingAmount = totalAsset - totalDebt
+    const remainingAmount = Math.max(totalAsset - totalDebt, 0)
 
     // // Chart data now includes remaining amount
     // const chartData = [
