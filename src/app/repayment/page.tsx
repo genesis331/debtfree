@@ -117,6 +117,12 @@ export default function Index() {
         fetchUserData();
     }, []);
 
+    useEffect(() => {
+        if (selectedStrategy) {
+            simulateDeptRepayment(selectedStrategy);
+        }
+    }, [selectedStrategy]);
+
     const handleAutoRepayment = async () => {
         setAutoRepayment(!autoRepayment)
         await updateDoc(doc(db, 'user', userId), {
