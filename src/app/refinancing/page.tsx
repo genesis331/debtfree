@@ -100,6 +100,7 @@ export default function Index() {
     });    
 
     const visibleDocs = showAll ? sortedRefinanceDocs : sortedRefinanceDocs.slice(0, 2);
+    const recommendedDoc = sortedRefinanceDocs.filter(elem => elem.name === 'CIMB Malaysia My Second Home')[0]
 
     return (
         <div className="min-h-screen flex flex-col px-6 pb-10 gap-6">
@@ -108,20 +109,20 @@ export default function Index() {
                 <div>Recommended for you</div>
                 <div className="flex flex-col gap-4">
                     <a
-                        href="https://www.cimb.com.my/en/personal/day-to-day-banking/financing/property-financing/malaysia-my-second-home.html"
+                        href={recommendedDoc.url}
                         target="_blank"
                     >
                         <Card className="shadow-none">
                             <CardContent className="px-5 py-4">
                                 <div className="flex flex-col gap-4">
                                     <div className="flex flex-col gap-1">
-                                        <div className="text-xs text-zinc-500">Housing Loan</div>
-                                        <div>CIMB Malaysia My Second Home</div>
+                                        <div className="text-xs text-zinc-500">{recommendedDoc.type}</div>
+                                        <div>{recommendedDoc.name}</div>
                                     </div>
-                                    <div className="text-3xl font-medium pb-1">RM1,700/mo</div>
+                                    <div className="text-3xl font-medium pb-1">{recommendedDoc.monthly}/mo</div>
                                     <div className="flex justify-between text-xs text-zinc-500">
-                                        <div>Max 35 years</div>
-                                        <div>from 2.15% p.a.</div>
+                                        <div>Max {recommendedDoc.maxTenure}</div>
+                                        <div>{recommendedDoc.rate} p.a.</div>
                                     </div>
                                 </div>
                             </CardContent>
