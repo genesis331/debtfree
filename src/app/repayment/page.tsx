@@ -351,7 +351,7 @@ export default function Index() {
         setDebtAfterSort(debtAfterStrategySort);
     };
 
-    const rlySimulate = () => {
+    const rlySimulate = async () => {
 
         const avg_cash_balance_per_month = 5000;
         let result = [];
@@ -374,9 +374,13 @@ export default function Index() {
                     currentYear += 1;
                 }
             }
-            console.log('result', result)
+            console.log('result', result);
             setRepaymentResult(result);
         }
+        
+        await updateDoc(doc(db, 'user', userId), {
+            repayment_strategy: selectedStrategy
+        });
     }
 
     return (
