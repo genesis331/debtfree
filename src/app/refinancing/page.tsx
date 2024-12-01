@@ -109,20 +109,20 @@ export default function Index() {
                 <div>Recommended for you</div>
                 <div className="flex flex-col gap-4">
                     <a
-                        href={recommendedDoc.url}
+                        href={recommendedDoc?.url}
                         target="_blank"
                     >
                         <Card className="shadow-none">
                             <CardContent className="px-5 py-4">
                                 <div className="flex flex-col gap-4">
                                     <div className="flex flex-col gap-1">
-                                        <div className="text-xs text-zinc-500">{recommendedDoc.type}</div>
-                                        <div>{recommendedDoc.name}</div>
+                                        <div className="text-xs text-zinc-500">{recommendedDoc?.type}</div>
+                                        <div>{recommendedDoc?.name}</div>
                                     </div>
-                                    <div className="text-3xl font-medium pb-1">{recommendedDoc.monthly}/mo</div>
+                                    <div className="text-3xl font-medium pb-1">{recommendedDoc?.monthly}/mo</div>
                                     <div className="flex justify-between text-xs text-zinc-500">
-                                        <div>Max {recommendedDoc.maxTenure}</div>
-                                        <div>{recommendedDoc.rate} p.a.</div>
+                                        <div>Max {recommendedDoc?.maxTenure}</div>
+                                        <div>{recommendedDoc?.rate} p.a.</div>
                                     </div>
                                 </div>
                             </CardContent>
