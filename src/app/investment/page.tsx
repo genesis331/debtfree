@@ -18,6 +18,7 @@ export default function Index() {
 
     const [learnDocs, setLearnDocs] = useState<Document[]>([]);
     const [investDocs, setInvestDocs] = useState<Document[]>([]);
+    const [efundDocs, setEfundDocs] = useState<Document[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,10 +38,12 @@ export default function Index() {
             // Separate documents based on type
             const learnArray = investmentList.filter(doc => doc.type === "learn");
             const investArray = investmentList.filter(doc => doc.type === "investment");
+            const efundArray = investmentList.filter(doc => doc.type === "emergency");
 
             // Update the state
             setLearnDocs(learnArray);
             setInvestDocs(investArray);
+            setEfundDocs(efundArray);
         };
 
         fetchData();
@@ -53,6 +56,25 @@ export default function Index() {
                 <div className="font-semibold">Low-Risk Investments</div>
                 <div className="flex flex-col gap-4">
                     {investDocs.map((elem) => (
+                        <a
+                            key={elem.url}
+                            href={elem.url}
+                            target="_blank"
+                        >
+                            <Card className="shadow-none cursor-pointer hover:bg-zinc-50">
+                                <CardContent className="px-5 py-4">
+                                    <div>{elem.name}</div>
+                                    <div className="text-xs text-zinc-500">{elem.secondary}</div>
+                                </CardContent>
+                            </Card>
+                        </a>
+                    ))}
+                </div>
+            </div>
+            <div className="flex flex-col gap-3.5">
+                <div className="font-semibold">Emergency Funds</div>
+                <div className="flex flex-col gap-4">
+                    {efundDocs.map((elem) => (
                         <a
                             key={elem.url}
                             href={elem.url}
