@@ -53,11 +53,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         <SettingsIcon /> Settings
                     </Button>
                 </Link>
-                <Link href="/test" onClick={toggleSidebar}>
+                {/* <Link href="/test" onClick={toggleSidebar}>
                     <Button variant="ghost" className="w-full justify-start py-6 px-4 gap-4 [&_svg]:size-5">
                         <FlaskConicalIcon /> Dev Menu
                     </Button>
-                </Link>
+                </Link> */}
                 <div className="px-3">
                     <Link href="/auth" onClick={toggleSidebar}>
                         <Button className="w-full font-semibold border-destructive text-destructive hover:text-destructive bg-destructive/20 hover:bg-destructive/10" size="lg" variant="outline">Log Out</Button>
