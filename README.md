@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DebtFree - Debt Management and Wealth Building App
 
-## Getting Started
+**DebtFree** is an innovative mobile app designed to provide personalized debt management solutions with an AI-powered advisor to help users manage their debts efficiently. It leverages data insights, predictive models, and real-time financial tracking to offer seamless debt repayment strategies, reduce interest payments, and promote wealth-building opportunities for users.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 1. **Open Finance Integration**
+   - Users can securely link all their financial accounts (e-wallets, bank accounts) to the DebtFree app.
+   - The app uses historical transactions and spending behavior to generate insightful financial data for personalized strategies.
+
+### 2. **Personalized Debt Repayment Strategies**
+   - The app generates customized repayment strategies based on users' payment preferences:
+     - **Minimize Interest**: For users making large, less frequent payments.
+     - **Snowball Method**: For users making smaller, more frequent payments, focusing on clearing smaller debts first.
+   - Auto debt repayment functionality that ensures seamless transactions across multiple linked accounts.
+
+### 3. **AI-Powered Debt Optimization**
+   - AI-driven analysis of user loans to suggest the best repayment strategies, including refinancing options to reduce monthly repayments.
+   - Proactive alerts to notify users of important financial events (hidden costs, grace periods, debt-to-asset ratio thresholds).
+
+### 4. **Centralized Dashboard**
+   - A real-time view of all linked financial data, debts, and repayment progress.
+   - Users can track and monitor their financial situation with an intuitive interface.
+
+### 5. **Wealth Building and Financial Guidance**
+   - AI-powered financial advisor (Gemini) offering personalized guidance on budgeting, savings, and wealth-building opportunities.
+   - Recommendations on low-risk investments and setting up an emergency fund.
+
+### 6. **Proactive Alerts**
+   - Alerts for financial conditions like approaching grace periods, changes in the debt-to-asset ratio, and hidden costs.
+   - Users receive timely notifications for any necessary action.
+
+## App Architecture
+
+The app's architecture is built with modern, scalable technologies to provide a smooth and efficient user experience:
+
+```ts
+// Architecture Description Here
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
+- Node.js and npm (for frontend and backend development)
+- Gemini API Key
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```ts
+// Description here
+```
 
-## Learn More
+### Setup
+```sh
+git clone https://github.com/genesis331/debtfree.git
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Contact
+For more information or potential collaboration, feel free to reach out to the developers:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Cheah Zixu](https://github.com/genesis331)
+- [Lim Jun Yi](https://github.com/limjy03)
